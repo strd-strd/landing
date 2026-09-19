@@ -55,8 +55,17 @@ function Hero() {
           <span className="mt-1 block whitespace-nowrap">45&nbsp;000&nbsp;₽ в месяц</span>
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-          Demidov Park берёт машину в управление: арендаторы, реклама, ТО и выдача —
-          на компании. Вы получаете пассивный доход, пока занимаетесь своими делами.
+          Автопрокат Демидов Парк (
+          <a
+            href={CONTACTS.siteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-accent underline-offset-4 transition-opacity duration-200 hover:opacity-90 hover:underline"
+          >
+            demidovpremium.ru
+          </a>
+          ) берёт машину в управление: арендаторы, реклама, ТО и выдача — на
+          компании. Вы получаете пассивный доход, пока занимаетесь своими делами.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <a
