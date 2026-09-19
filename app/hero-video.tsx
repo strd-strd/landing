@@ -6,10 +6,11 @@ export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) {
+    const node = videoRef.current;
+    if (!node) {
       return;
     }
+    const video: HTMLVideoElement = node;
 
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
