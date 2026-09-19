@@ -1,11 +1,12 @@
 export const NAV_LINKS = [
-  { href: "#dohod", label: "Доход" },
-  { href: "#vhod", label: "Вход от 100 000 ₽" },
-  { href: "#kak", label: "Как это работает" },
-  { href: "#preimushestva", label: "Преимущества" },
-  { href: "#otzyvy", label: "Отзывы" },
-  { href: "#faq", label: "Вопросы" },
-  { href: "#kontakty", label: "Контакты" },
+  { href: "/#dohod", label: "Доход" },
+  { href: "/#vhod", label: "Вход от 100 000 ₽" },
+  { href: "/#kak", label: "Как это работает" },
+  { href: "/#preimushestva", label: "Преимущества" },
+  { href: "/#otzyvy", label: "Отзывы" },
+  { href: "/blog", label: "Блог" },
+  { href: "/#faq", label: "Вопросы" },
+  { href: "/#kontakty", label: "Контакты" },
 ] as const;
 
 export const HERO_STATS = [

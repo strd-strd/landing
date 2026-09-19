@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CONTACTS } from "@/lib/contacts";
 import { NAV_LINKS } from "@/lib/content";
 
@@ -36,12 +37,12 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a
+                <Link
                   href={link.href}
                   className="inline-flex min-h-11 cursor-pointer items-center text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -136,6 +136,27 @@ html[data-sticky-cta="1"] .contact-widget {
   }
 }
 
+@keyframes swipe-hint {
+  0%,
+  15% {
+    transform: translateX(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateX(0.85rem);
+    opacity: 0.85;
+  }
+  85%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.45;
+  }
+}
+
+.swipe-hint-hand {
+  animation: swipe-hint 1.8s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -148,5 +169,10 @@ html[data-sticky-cta="1"] .contact-widget {
   .btn-shimmer::before {
     animation: none;
     display: none;
+  }
+
+  .swipe-hint-hand {
+    animation: none;
+    opacity: 0.85;
   }
 }

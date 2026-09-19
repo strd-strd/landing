@@ -162,3 +162,29 @@ export function ChevronIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+/** Рука с 5 пальцами, указательный вытянут — подсказка свайпа. */
+export function SwipeHandIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      {/* Мизинец */}
+      <rect x="42" y="26" width="6.5" height="16" rx="3.25" fill="currentColor" />
+      {/* Безымянный */}
+      <rect x="34.5" y="22" width="6.5" height="20" rx="3.25" fill="currentColor" />
+      {/* Средний */}
+      <rect x="27" y="20" width="6.5" height="22" rx="3.25" fill="currentColor" />
+      {/* Указательный — длиннее, для свайпа */}
+      <rect x="19.5" y="6" width="7" height="36" rx="3.5" fill="currentColor" />
+      {/* Большой палец */}
+      <path
+        fill="currentColor"
+        d="M12.5 34c-3.2 0-5.5 2.4-5.5 5.3 0 4.2 3.2 7.2 8.4 7.2H22v-7.8c0-2.6-2.1-4.7-4.7-4.7h-4.8Z"
+      />
+      {/* Ладонь */}
+      <path
+        fill="currentColor"
+        d="M19.5 36h29c1.4 0 2.5 1.1 2.5 2.5v8.2c0 8.1-6.2 14.8-14.2 15.7l-2.1.2c-8.6.9-16.2-5.4-16.2-14V38.5c0-1.4 1.1-2.5 2.5-2.5Z"
+      />
+    </svg>
+  );
+}

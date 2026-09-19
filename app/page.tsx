@@ -1,7 +1,10 @@
 import { CallbackForm } from "@/app/callback-form";
+import { BlogSwipeHint } from "@/app/blog-swipe-hint";
+import { HeroVideo } from "@/app/hero-video";
 import { ChevronIcon } from "@/app/icons";
 import { IncomeClasses } from "@/app/income-classes";
 import { MyReviewsWidget } from "@/app/my-reviews-widget";
+import { BLOG_ARTICLES } from "@/lib/blog";
 import { CONTACTS } from "@/lib/contacts";
 import {
   ADVANTAGES,
@@ -13,6 +16,7 @@ import {
   TRUST_STRIP,
 } from "@/lib/content";
 import Image from "next/image";
+import Link from "next/link";
 
 const RENTAL_SITE_HOST = "demidovpremium.ru";
 
@@ -28,6 +32,7 @@ export default function Home() {
       <Reviews />
       <Lead />
       <Faq />
+      <BlogPreview />
     </main>
   );
 }
@@ -36,21 +41,7 @@ function Hero() {
   return (
     <section className="relative isolate min-h-svh overflow-hidden px-4 pb-20 pt-[calc(var(--header-height)+3rem)] sm:px-6 sm:pb-28 sm:pt-[calc(var(--header-height)+4.5rem)]">
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <video
-          className="absolute inset-0 size-full object-cover brightness-110 contrast-105 motion-reduce:hidden"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster="/cadillac-poster.jpg"
-        >
-          <source src="/cadillac.mp4" type="video/mp4" />
-        </video>
-        <div
-          className="absolute inset-0 hidden bg-cover bg-center motion-reduce:block"
-          style={{ backgroundImage: "url(/cadillac-poster.jpg)" }}
-        />
+        <HeroVideo />
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(226,172,107,0.1),transparent_55%)]" />
       </div>
@@ -479,6 +470,70 @@ function Faq() {
           ))}
         </div>
       </div>
+    </section>
+  );
+}
+
+function BlogPreview() {
+  return (
+    <section id="blog" className="border-t border-border bg-card/40 py-20 sm:py-24">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-[0.18em] text-accent">Блог</p>
+            <h2 className="mt-3 font-serif text-4xl text-foreground sm:text-5xl">
+              Статьи
+            </h2>
+            <p className="mt-4 max-w-xl text-muted-foreground">
+              Материалы с demidovpremium.ru
+            </p>
+          </div>
+          <Link
+            href="/blog"
+            className="inline-flex min-h-11 shrink-0 cursor-pointer items-center text-sm font-semibold text-accent transition-opacity duration-200 hover:opacity-90"
+          >
+            Все статьи →
+          </Link>
+        </div>
+      </div>
+
+      <BlogSwipeHint>
+        <ul className="mx-auto flex w-max max-w-none gap-5 px-4 sm:gap-6 sm:px-6 lg:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))]">
+          {BLOG_ARTICLES.map((article) => (
+            <li key={article.slug} className="w-[min(85vw,22rem)] shrink-0 sm:w-96">
+              <Link
+                href={`/blog/${article.slug}`}
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-background transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-[0_12px_32px_rgba(226,172,107,0.12)]"
+              >
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
+                  <Image
+                    src={article.image}
+                    alt={article.imageAlt}
+                    fill
+                    sizes="384px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <p className="text-xs uppercase tracking-[0.16em] text-accent">
+                    {article.dateLabel}
+                  </p>
+                  <h3 className="mt-2 font-serif text-xl text-foreground sm:text-2xl">
+                    {article.title}
+                  </h3>
+                  <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    {article.excerpt}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent">
+                    Читать
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </BlogSwipeHint>
     </section>
   );
 }
