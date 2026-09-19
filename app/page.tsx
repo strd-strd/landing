@@ -443,7 +443,20 @@ function Lead() {
             </p>
           </div>
         </div>
-        <CallbackForm />
+        <div className="flex flex-col items-center gap-5">
+          <div className="relative size-48 overflow-hidden rounded-full border-2 border-accent/50 sm:size-56">
+            <Image
+              src="/advantages/founder.jpg"
+              alt="Евгений Демидов, основатель Demidov Park"
+              fill
+              sizes="224px"
+              className="object-cover object-top"
+            />
+          </div>
+          <div className="w-full">
+            <CallbackForm />
+          </div>
+        </div>
       </div>
     </section>
   );
