@@ -9,6 +9,16 @@ export const NAV_LINKS = [
   { href: "/#kontakty", label: "Контакты" },
 ] as const;
 
+/** Короткие пункты для десктоп-хедера — без переполнения. */
+export const HEADER_NAV_LINKS = [
+  { href: "/#dohod", label: "Доход" },
+  { href: "/#vhod", label: "Вход" },
+  { href: "/#kak", label: "Как работает" },
+  { href: "/#preimushestva", label: "Преимущества" },
+  { href: "/#otzyvy", label: "Отзывы" },
+  { href: "/blog", label: "Блог" },
+] as const;
+
 export const HERO_STATS = [
   { value: "от 2 000 ₽", label: "в сутки" },
   { value: "от 14 000 ₽", label: "за неделю" },

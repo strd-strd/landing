@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { CONTACTS } from "@/lib/contacts";
-import { NAV_LINKS } from "@/lib/content";
+import { HEADER_NAV_LINKS, NAV_LINKS } from "@/lib/content";
 import { CloseIcon, MenuIcon, PhoneIcon } from "@/app/icons";
 
 export function SiteHeader() {
@@ -30,44 +30,55 @@ export function SiteHeader() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/80 bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex h-[var(--header-height)] w-full max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+      <div className="mx-auto flex h-[var(--header-height)] w-full max-w-6xl items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6">
         <Link
           href="/"
           aria-label="Demidov Park — на главную"
-          className="flex min-h-11 min-w-11 cursor-pointer items-center"
+          className="flex min-h-11 shrink-0 cursor-pointer items-center"
         >
-          <Image src="/logo.svg" alt="Demidov Park" width={134} height={32} unoptimized />
+          <Image
+            src="/logo.svg"
+            alt="Demidov Park"
+            width={120}
+            height={28}
+            className="h-7 w-auto"
+            unoptimized
+          />
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Основное меню">
-          {NAV_LINKS.map((link) => (
+        <nav
+          className="hidden min-w-0 flex-1 items-center justify-center gap-4 xl:flex xl:gap-5"
+          aria-label="Основное меню"
+        >
+          {HEADER_NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="cursor-pointer text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+              className="whitespace-nowrap text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <a
             href={CONTACTS.phoneHref}
-            className="hidden min-h-11 cursor-pointer items-center gap-2 px-2 text-sm font-semibold text-accent transition-opacity duration-200 hover:opacity-90 md:inline-flex"
+            className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-lg px-2 text-sm font-semibold text-accent transition-opacity duration-200 hover:opacity-90"
+            aria-label={CONTACTS.phoneDisplay}
           >
-            <PhoneIcon className="size-4" />
-            {CONTACTS.phoneDisplay}
+            <PhoneIcon className="size-4 shrink-0" />
+            <span className="hidden whitespace-nowrap 2xl:inline">{CONTACTS.phoneDisplay}</span>
           </a>
           <Link
             href="/#zayavka"
-            className="btn-shimmer hidden min-h-11 cursor-pointer items-center rounded-lg bg-accent px-4 text-sm font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90 sm:inline-flex"
+            className="btn-shimmer hidden min-h-11 cursor-pointer items-center whitespace-nowrap rounded-lg bg-accent px-3 text-sm font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90 sm:inline-flex xl:px-4"
           >
-            Получить консультацию
+            Консультация
           </Link>
           <button
             type="button"
-            className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-foreground lg:hidden"
+            className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-foreground xl:hidden"
             aria-expanded={open}
             aria-controls={menuId}
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
@@ -81,7 +92,7 @@ export function SiteHeader() {
       {open ? (
         <div
           id={menuId}
-          className="border-t border-border bg-background px-4 py-4 lg:hidden"
+          className="border-t border-border bg-background px-4 py-4 xl:hidden"
         >
           <nav className="flex flex-col gap-1" aria-label="Мобильное меню">
             {NAV_LINKS.map((link) => (
