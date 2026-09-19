@@ -60,7 +60,7 @@ export function SiteHeader() {
           </a>
           <a
             href="#zayavka"
-            className="hidden min-h-11 cursor-pointer items-center rounded-lg bg-accent px-4 text-sm font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90 sm:inline-flex"
+            className="btn-shimmer hidden min-h-11 cursor-pointer items-center rounded-lg bg-accent px-4 text-sm font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90 sm:inline-flex"
           >
             Стать инвестором
           </a>
@@ -102,7 +102,7 @@ export function SiteHeader() {
             </a>
             <a
               href="#zayavka"
-              className="mt-2 flex min-h-11 cursor-pointer items-center justify-center rounded-lg bg-accent px-4 font-semibold text-on-accent"
+              className="btn-shimmer mt-2 flex min-h-11 cursor-pointer items-center justify-center rounded-lg bg-accent px-4 font-semibold text-on-accent"
               onClick={() => setOpen(false)}
             >
               Стать инвестором

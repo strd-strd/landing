@@ -9,8 +9,17 @@ export function SiteFooter() {
         <div>
           <Image src="/logo.svg" alt="Demidov Park" width={134} height={32} unoptimized />
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            Инвестиции в доходные автомобили. Управляющая компания Demidov Park,
-            Нижний Новгород. С 2016 года.
+            Инвестиции в доходные автомобили. Управляющая компания Demidov Park
+            сдаёт парк в аренду через{" "}
+            <a
+              href={CONTACTS.siteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent transition-opacity duration-200 hover:opacity-90"
+            >
+              demidovpremium.ru
+            </a>
+            . Нижний Новгород, с 2016 года.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
             {CONTACTS.legalName}
@@ -57,6 +66,24 @@ export function SiteFooter() {
             className="mt-3 inline-flex min-h-11 cursor-pointer items-center text-sm text-accent transition-opacity duration-200 hover:opacity-90"
           >
             demidovpremium.ru
+          </a>
+          <a
+            href={CONTACTS.mapUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 block overflow-hidden rounded-xl border border-border transition-opacity duration-200 hover:opacity-90"
+            aria-label={`Открыть карту: ${CONTACTS.city}, ${CONTACTS.address}`}
+          >
+            <iframe
+              title={`Офис Demidov Park — ${CONTACTS.address}`}
+              src={`https://www.openstreetmap.org/export/embed.html?bbox=${Number(CONTACTS.mapLon) - 0.012}%2C${Number(CONTACTS.mapLat) - 0.007}%2C${Number(CONTACTS.mapLon) + 0.012}%2C${Number(CONTACTS.mapLat) + 0.007}&layer=mapnik&marker=${CONTACTS.mapLat}%2C${CONTACTS.mapLon}`}
+              className="pointer-events-none h-40 w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <span className="block border-t border-border bg-background px-3 py-2 text-xs text-muted-foreground">
+              Офис на Родионова, 169А — открыть в Яндекс Картах
+            </span>
           </a>
         </div>
       </div>

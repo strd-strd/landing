@@ -44,7 +44,7 @@ export function CallbackForm() {
             href={CONTACTS.telegramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg bg-accent px-4 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
+            className="btn-shimmer inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg bg-accent px-4 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
           >
             <TelegramIcon className="size-5" />
             Telegram
@@ -53,7 +53,7 @@ export function CallbackForm() {
             href={CONTACTS.maxUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg border border-border px-4 font-semibold text-foreground transition-colors duration-200 hover:border-accent"
+            className="btn-shimmer inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg border border-border px-4 font-semibold text-foreground transition-colors duration-200 hover:border-accent"
           >
             <MaxIcon className="size-5" />
             MAX
@@ -106,12 +106,13 @@ export function CallbackForm() {
         ) : null}
         <button
           type="submit"
-          className="min-h-12 cursor-pointer rounded-lg bg-accent px-5 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
+          className="btn-shimmer min-h-12 cursor-pointer rounded-lg bg-accent px-5 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
         >
-          Перезвоните мне
+          Обсудить вход с Евгением
         </button>
         <p className="text-xs text-muted-foreground">
-          Обычно отвечаем в течение рабочего дня. {CONTACTS.hours}.
+          Заявка на личную консультацию. Обычно отвечаем в течение рабочего дня.{" "}
+          {CONTACTS.hours}.
         </p>
       </div>
     </form>

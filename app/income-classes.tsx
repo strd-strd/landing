@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { INCOME_CLASSES } from "@/lib/content";
 
@@ -39,18 +40,33 @@ export function IncomeClasses() {
 
       <div
         role="tabpanel"
-        className="mt-6 rounded-2xl border border-border bg-card p-6 sm:p-8"
+        className="mt-6 rounded-2xl border border-border bg-card p-5 sm:p-6"
       >
-        <p className="text-sm uppercase tracking-[0.18em] text-accent">{active.title}</p>
-        <p className="mt-2 text-muted-foreground">{active.example}</p>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2">
-          <div>
-            <p className="font-serif text-4xl text-foreground">{active.month}</p>
-            <p className="mt-1 text-sm text-muted-foreground">ориентир в месяц</p>
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+          <div className="relative h-28 w-full shrink-0 overflow-hidden rounded-xl bg-muted sm:h-32 sm:w-44">
+            <Image
+              key={active.id}
+              src={active.image}
+              alt={active.imageAlt}
+              fill
+              sizes="(max-width: 640px) 100vw, 176px"
+              className="object-cover object-center"
+              priority={active.id === "comfort"}
+            />
           </div>
-          <div>
-            <p className="font-serif text-4xl text-foreground">{active.year}</p>
-            <p className="mt-1 text-sm text-muted-foreground">ориентир за год</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm uppercase tracking-[0.18em] text-accent">{active.title}</p>
+            <p className="mt-2 text-muted-foreground">{active.example}</p>
+            <div className="mt-5 grid gap-5 sm:grid-cols-2">
+              <div>
+                <p className="font-serif text-3xl text-foreground sm:text-4xl">{active.month}</p>
+                <p className="mt-1 text-sm text-muted-foreground">ориентир в месяц</p>
+              </div>
+              <div>
+                <p className="font-serif text-3xl text-foreground sm:text-4xl">{active.year}</p>
+                <p className="mt-1 text-sm text-muted-foreground">ориентир за год</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

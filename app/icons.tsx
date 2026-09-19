@@ -95,6 +95,61 @@ export function CheckIcon({ className }: IconProps) {
   );
 }
 
+export function DocumentIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M7 3.5h7.5L19 8v12.5a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"
+      />
+      <path
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        d="M14 3.5V8h4.5M9 12h6M9 16h4"
+      />
+    </svg>
+  );
+}
+
+export function CalendarIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M5 6.5h14a1 1 0 0 1 1 1V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7.5a1 1 0 0 1 1-1Z"
+      />
+      <path
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        d="M8 4v4M16 4v4M4 10.5h16M9.5 14.5h.01M14.5 14.5h.01M9.5 17.5h.01"
+      />
+    </svg>
+  );
+}
+
+export function KeyIcon({ className }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="8.5" cy="10" r="3.5" stroke="currentColor" strokeWidth="1.7" />
+      <path
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M11.5 11.5 19 19M16.5 16.5l2 2M14.5 18.5l1.5 1.5"
+      />
+    </svg>
+  );
+}
+
 export function ChevronIcon({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">

@@ -52,7 +52,7 @@ export function ContactWidget() {
   }, [open]);
 
   return (
-    <div className="pointer-events-none fixed right-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 flex flex-col items-end gap-3 sm:right-6">
+    <div className="contact-widget pointer-events-none fixed right-4 z-40 flex flex-col items-end gap-3 sm:right-6">
       {open ? (
         <div
           ref={panelRef}
@@ -132,7 +132,7 @@ export function ContactWidget() {
       <button
         ref={buttonRef}
         type="button"
-        className="pointer-events-auto inline-flex min-h-14 min-w-14 cursor-pointer items-center justify-center rounded-full border border-accent bg-accent text-on-accent shadow-[var(--shadow-lg)] transition-opacity duration-200 hover:opacity-90"
+        className="btn-shimmer pointer-events-auto inline-flex min-h-14 min-w-14 cursor-pointer items-center justify-center rounded-full border border-accent bg-accent text-on-accent shadow-[var(--shadow-lg)] transition-opacity duration-200 hover:opacity-90"
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? "Закрыть выбор канала" : "Написать в Telegram, MAX или ассистенту"}

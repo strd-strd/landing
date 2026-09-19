@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import { ContactWidget } from "@/app/contact-widget";
 import { SiteFooter } from "@/app/site-footer";
 import { SiteHeader } from "@/app/site-header";
+import { StickyInvestCta } from "@/app/sticky-invest-cta";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </div>
         <SiteFooter />
         <ContactWidget />
+        <StickyInvestCta />
       </body>
     </html>
   );
