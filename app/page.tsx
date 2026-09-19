@@ -50,7 +50,9 @@ function Hero() {
           Инвестиции в авто · {CONTACTS.city}
         </p>
         <h1 className="mt-5 max-w-4xl text-4xl font-semibold uppercase leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-          Инвестируйте в доходный автомобиль и зарабатывайте от 45 000 ₽ в месяц
+          <span className="block">Инвестируйте в доходные автомобили</span>
+          <span className="block">и зарабатывайте от</span>
+          <span className="mt-1 block whitespace-nowrap">45&nbsp;000&nbsp;₽ в месяц</span>
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
           Demidov Park берёт машину в управление: арендаторы, реклама, ТО и выдача —
