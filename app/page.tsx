@@ -4,6 +4,7 @@ import { BlogSwipeHint } from "@/app/blog-swipe-hint";
 import { HeroVideo } from "@/app/hero-video";
 import { ChevronIcon } from "@/app/icons";
 import { IncomeClasses } from "@/app/income-classes";
+import { InvestCalculator } from "@/app/invest-calculator";
 import { MyReviewsWidget } from "@/app/my-reviews-widget";
 import { OwnCarCalculator } from "@/app/own-car-calculator";
 import { BLOG_ARTICLES } from "@/lib/blog";
@@ -28,6 +29,7 @@ export default function Home() {
       <Hero />
       <Income />
       <EntryPool />
+      <InvestCalculator />
       <OwnCarCalculator />
       <HowItWorks />
       <MidCta />

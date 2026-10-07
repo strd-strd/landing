@@ -12,16 +12,7 @@ export function SiteFooter() {
           <Image src="/logo.svg" alt="Демидов Парк" width={134} height={32} unoptimized />
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
             Инвестиции в доходные автомобили. Управляющая компания <BrandLink />{" "}
-            сдаёт парк в аренду через{" "}
-            <a
-              href={CONTACTS.siteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent transition-opacity duration-200 hover:opacity-90"
-            >
-              demidovpark.ru
-            </a>
-            . Нижний Новгород, с 2016 года.
+            сдаёт авто в аренду в Нижнем Новгороде с 2016 года.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
             {CONTACTS.legalName}
