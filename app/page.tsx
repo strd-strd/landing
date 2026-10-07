@@ -166,27 +166,23 @@ function EntryPool() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className={`${
                     contain
-                      ? "object-contain object-center p-3 brightness-110 contrast-105"
-                      : "object-cover brightness-125 contrast-110 saturate-110"
+                      ? "object-contain object-center p-3 brightness-95"
+                      : "object-cover brightness-90 saturate-105"
                   } transition-transform duration-300 group-hover:scale-[1.03]`}
                 />
                 <div
-                  className={`absolute inset-0 ${
-                    contain
-                      ? "bg-gradient-to-t from-background/95 via-background/55 to-background/25"
-                      : "bg-gradient-to-t from-background/92 via-background/40 to-background/10"
-                  }`}
+                  className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-black/35"
                   aria-hidden="true"
                 />
                 <div
-                  className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(226,172,107,0.32),transparent_60%)]"
+                  className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(226,172,107,0.14),transparent_55%)]"
                   aria-hidden="true"
                 />
-                <div className="relative z-10 flex h-full flex-col justify-end px-6 py-8 sm:px-7 sm:py-9">
-                  <h3 className="font-serif text-3xl leading-tight text-foreground drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] sm:text-[2rem]">
+                <div className="relative z-10 mt-auto flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 pb-8 pt-16 sm:px-7 sm:pb-9">
+                  <h3 className="font-serif text-3xl leading-tight text-white sm:text-[2rem]">
                     {item.title}
                   </h3>
-                  <p className="mt-4 text-sm leading-relaxed text-foreground drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)] sm:text-[0.95rem]">
+                  <p className="mt-4 text-sm leading-relaxed text-white/92 sm:text-[0.95rem]">
                     {withBrandLinks(item.text)}
                   </p>
                 </div>
