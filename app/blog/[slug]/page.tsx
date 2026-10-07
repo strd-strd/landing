@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BrandLink, withBrandLinks } from "@/app/brand-link";
 import { BLOG_ARTICLES, getBlogArticle } from "@/lib/blog";
-import { CONTACTS } from "@/lib/contacts";
 
 type BlogArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -86,19 +85,21 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
             ))}
           </div>
 
-          <div className="mt-12 rounded-2xl border border-border bg-card px-5 py-5">
-            <p className="text-sm text-muted-foreground">
-              Полная версия статьи — на сайте проката <BrandLink />.
-            </p>
-            <a
-              href={article.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-shimmer mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg bg-accent px-5 text-sm font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
-            >
-              Читать на {article.sourceLabel}
-            </a>
-          </div>
+          {article.sourceUrl ? (
+            <div className="mt-12 rounded-2xl border border-border bg-card px-5 py-5">
+              <p className="text-sm text-muted-foreground">
+                Полная версия статьи — на сайте проката <BrandLink />.
+              </p>
+              <a
+                href={article.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-shimmer mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg bg-accent px-5 text-sm font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
+              >
+                Читать на {article.sourceLabel ?? "demidovpark.ru"}
+              </a>
+            </div>
+          ) : null}
 
           <div className="mt-10 flex flex-col gap-3 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-muted-foreground">
@@ -111,18 +112,6 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
               Получить консультацию
             </Link>
           </div>
-
-          <p className="mt-6 text-xs text-muted-foreground">
-            Источник:{" "}
-            <a
-              href={article.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent underline-offset-2 hover:underline"
-            >
-              {CONTACTS.siteUrl.replace("https://", "")}
-            </a>
-          </p>
         </div>
       </article>
     </main>

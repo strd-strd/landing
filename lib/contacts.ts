@@ -1,8 +1,11 @@
+export const BRAND_SHORT = "Демидов Парк";
+
 export const CONTACTS = {
-  brand: "Демидов Парк",
+  brand: BRAND_SHORT,
+  brandShort: BRAND_SHORT,
   phoneDisplay: "+7 908 230 04 40",
   phoneHref: "tel:+79082300440",
-  telegramUrl: "https://t.me/demidovautopark",
+  telegramUrl: "https://t.me/demidovPark",
   maxUrl:
     "https://max.ru/u/f9LHodD0cOJZa1klwumH3oygHNX7OCYlWjqmZrPXfbIj6HscKyRhRUqMieo",
   city: "Нижний Новгород",
@@ -11,9 +14,12 @@ export const CONTACTS = {
   legalName: 'ООО «Демидов Парк»',
   inn: "5260497961",
   ogrn: "1245200031867",
+  /** Сайт проката */
   siteUrl: "https://demidovpark.ru",
+  /** Канонический хост инвест-лендинга */
+  canonicalHost: "https://invest.demidovpark.ru",
   mapLat: "56.3097427",
   mapLon: "44.0703641",
   mapUrl:
-    "https://yandex.ru/maps/?text=%D0%9D%D0%B8%D0%B6%D0%BD%D0%B8%D0%B9%20%D0%9D%D0%BE%D0%B2%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%2C%20%D1%83%D0%BB.%20%D0%A0%D0%BE%D0%B4%D0%B8%D0%BE%D0%BD%D0%BE%D0%B2%D0%B0%2C%20169%D0%90",
+    "https://yandex.ru/maps/org/demidov_park/115550005925/?ll=44.070396%2C56.309714&z=16",
 } as const;

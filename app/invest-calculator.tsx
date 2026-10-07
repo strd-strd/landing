@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { openLeadPopup } from "@/lib/lead-popup";
 
 const ANNUAL_RATE = 0.25;
 const AMOUNT_MIN = 100_000;
@@ -97,12 +98,19 @@ export function InvestCalculator() {
             лично.
           </p>
 
-          <a
-            href="#zayavka"
+          <button
+            type="button"
+            onClick={() =>
+              openLeadPopup({
+                title: "Консультация по вложениям",
+                subtitle: "Евгений разберёт долю в пуле и условия на встрече.",
+                context: `Сумма в калькуляторе: ${formatRub(amount)} · ориентир ~${formatRub(monthly)}/мес`,
+              })
+            }
             className="btn-shimmer mt-6 inline-flex min-h-12 w-full cursor-pointer items-center justify-center rounded-lg bg-accent px-6 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90 sm:w-auto"
           >
             Получить консультацию
-          </a>
+          </button>
         </div>
       </div>
     </section>

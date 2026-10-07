@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { CONTACTS } from "@/lib/contacts";
-import { AssistantIcon, CloseIcon, MaxIcon, TelegramIcon } from "@/app/icons";
+import { AssistantIcon, CloseIcon, TelegramIcon } from "@/app/icons";
 
 export function ContactWidget() {
   const [open, setOpen] = useState(false);
@@ -95,21 +95,7 @@ export function ContactWidget() {
               <span>
                 <span className="block text-sm font-semibold">Telegram</span>
                 <span className="block text-xs text-muted-foreground">
-                  Написать менеджеру
-                </span>
-              </span>
-            </a>
-            <a
-              href={CONTACTS.maxUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-border bg-muted/40 px-3 text-left transition-colors duration-200 hover:border-accent"
-            >
-              <MaxIcon className="size-5 text-accent" />
-              <span>
-                <span className="block text-sm font-semibold">MAX</span>
-                <span className="block text-xs text-muted-foreground">
-                  Написать менеджеру
+                  Написать Евгению в Telegram
                 </span>
               </span>
             </a>
@@ -135,7 +121,7 @@ export function ContactWidget() {
         className="btn-shimmer pointer-events-auto inline-flex min-h-14 min-w-14 cursor-pointer items-center justify-center rounded-full border border-accent bg-accent text-on-accent shadow-[var(--shadow-lg)] transition-opacity duration-200 hover:opacity-90"
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label={open ? "Закрыть выбор канала" : "Написать в Telegram, MAX или ассистенту"}
+        aria-label={open ? "Закрыть выбор канала" : "Написать Евгению в Telegram"}
         onClick={() => setOpen((value) => !value)}
       >
         {open ? <CloseIcon className="size-6" /> : <AssistantIcon className="size-6" />}

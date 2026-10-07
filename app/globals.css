@@ -54,6 +54,7 @@
 
 html {
   scroll-padding-top: calc(var(--header-height) + 0.75rem);
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -63,6 +64,7 @@ body {
   font-size: 1rem;
   line-height: 1.5;
   padding-bottom: 5rem;
+  overflow-x: clip;
 }
 
 a,

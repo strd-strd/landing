@@ -14,7 +14,6 @@ import {
   ENTRY_HIGHLIGHTS,
   FAQ_ITEMS,
   HERO_STATS,
-  REVIEWS,
   STEPS,
   TRUST_STRIP,
 } from "@/lib/content";
@@ -28,9 +27,9 @@ export default function Home() {
     <main id="main">
       <Hero />
       <Income />
+      <OwnCarCalculator />
       <EntryPool />
       <InvestCalculator />
-      <OwnCarCalculator />
       <HowItWorks />
       <MidCta />
       <Advantages />
@@ -89,20 +88,22 @@ function Hero() {
             </div>
           ))}
         </dl>
-        <p className="mt-8 max-w-3xl text-sm text-muted-foreground sm:text-base">
+        <ul className="mt-8 grid max-w-xl grid-cols-2 gap-x-4 gap-y-3 text-sm text-muted-foreground sm:max-w-2xl sm:text-base lg:flex lg:max-w-none lg:flex-nowrap lg:items-baseline lg:gap-0">
           {TRUST_STRIP.map((item, index) => (
-            <span key={item.label}>
+            <li key={item.label} className="min-w-0 lg:inline-flex lg:items-baseline">
               {index > 0 ? (
-                <span className="mx-2 text-accent/70" aria-hidden="true">
+                <span className="mx-2.5 hidden text-accent/70 lg:inline" aria-hidden="true">
                   ·
                 </span>
               ) : null}
-              <span className="font-semibold text-foreground">{item.value}</span>
-              {" "}
-              {item.label}
-            </span>
+              <span className="inline-block lg:whitespace-nowrap">
+                <span className="font-semibold text-foreground">{item.value}</span>
+                {" "}
+                {item.label}
+              </span>
+            </li>
           ))}
-        </p>
+        </ul>
       </div>
     </section>
   );
@@ -133,7 +134,11 @@ function Income() {
             </a>
             {" "}
             — это основная точка сдачи парка <BrandLink /> в аренду. Ваша машина
-            выходит в тот же поток клиентов, что и весь автопарк компании.
+            выходит в тот же поток клиентов, что и весь автопарк компании. Реклама,
+            арендаторы, ТО и выдача — на компании. Вы получаете выплаты. Ориентир
+            ниже — при ставке{" "}
+            <span className="whitespace-nowrap font-semibold text-accent">25% годовых</span>{" "}
+            от оценочной стоимости.
           </p>
         </div>
         <IncomeClasses />
@@ -392,41 +397,25 @@ function Reviews() {
   return (
     <section id="otzyvy" className="border-t border-border px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto w-full max-w-6xl">
-        <h2 className="font-serif text-4xl text-foreground sm:text-5xl">
-          Отзывы инвесторов
+        <p className="text-sm uppercase tracking-[0.18em] text-accent">Доверие</p>
+        <h2 className="mt-3 font-serif text-4xl text-foreground sm:text-5xl">
+          Отзывы клиентов автопроката <BrandLink />
         </h2>
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {REVIEWS.map((item) => (
-            <blockquote
-              key={item.name}
-              className="rounded-2xl border border-border bg-card p-6"
-            >
-              <p className="text-base leading-relaxed text-foreground">{item.text}</p>
-              <footer className="mt-5">
-                <cite className="not-italic font-semibold">{item.name}</cite>
-                <p className="mt-1 text-sm text-muted-foreground">{item.meta}</p>
-              </footer>
-            </blockquote>
-          ))}
-        </div>
-
-        <div className="mt-16">
-          <h3 className="font-serif text-3xl text-foreground sm:text-4xl">
-            Отзывы клиентов автопроката <BrandLink />
-          </h3>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            Реальные отзывы арендаторов с{" "}
-            <a
-              href={CONTACTS.siteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-accent underline-offset-4 transition-opacity duration-200 hover:opacity-90 hover:underline"
-            >
-              {RENTAL_SITE_HOST}
-            </a>
-            {" "}
-            — того же парка, куда выходит автомобиль инвестора.
-          </p>
+        <p className="mt-4 max-w-2xl text-muted-foreground">
+          Реальные отзывы арендаторов с{" "}
+          <a
+            href={CONTACTS.siteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-accent underline-offset-4 transition-opacity duration-200 hover:opacity-90 hover:underline"
+          >
+            {RENTAL_SITE_HOST}
+          </a>
+          {" "}
+          — того же парка, куда выходит автомобиль инвестора. Отзывы частных инвесторов
+          Евгений разбирает лично на встрече.
+        </p>
+        <div className="mt-10">
           <MyReviewsWidget />
         </div>
       </div>
@@ -521,7 +510,8 @@ function BlogPreview() {
               Статьи
             </h2>
             <p className="mt-4 max-w-xl text-muted-foreground">
-              Материалы с demidovpark.ru
+              Пул инвесторов, своё авто в управление, доходность и риски — без рерайтов
+              арендных статей.
             </p>
           </div>
           <Link

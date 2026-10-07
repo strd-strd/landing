@@ -2,12 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { BLOG_ARTICLES } from "@/lib/blog";
-import { CONTACTS } from "@/lib/contacts";
 
 export const metadata: Metadata = {
-  title: "Блог | Демидов Парк",
+  title: "Блог | Демидов Парк — инвестиции",
   description:
-    "Статьи об аренде автомобилей, рынке проката и инвестициях в доходный автопарк Демидов Парк.",
+    "Статьи об инвестициях в автопарк: пул от 100 000 ₽, своё авто в управление, доходность ~25% и риски.",
 };
 
 export default function BlogPage() {
@@ -17,20 +16,11 @@ export default function BlogPage() {
         <div className="mx-auto w-full max-w-6xl">
           <p className="text-sm uppercase tracking-[0.18em] text-accent">Блог</p>
           <h1 className="mt-3 max-w-3xl font-serif text-4xl text-foreground sm:text-5xl">
-            Статьи о рынке аренды и автобизнесе
+            Инвестиции в автопарк без лишнего шума
           </h1>
           <p className="mt-4 max-w-2xl text-muted-foreground">
-            Материалы с{" "}
-            <a
-              href={CONTACTS.siteUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-accent underline-offset-4 transition-opacity duration-200 hover:opacity-90 hover:underline"
-            >
-              demidovpark.ru
-            </a>
-            {" "}
-            — в кратком изложении для инвесторов и клиентов парка.
+            Пул инвесторов, своё авто в управление, расчёт доходности и риски — материалы
+            для тех, кто рассматривает вход в Демидов Парк.
           </p>
 
           <ul className="mt-12 grid gap-8 md:grid-cols-2">
