@@ -130,8 +130,8 @@ export const ADVANTAGES = [
     id: "full-service",
     title: "Всё берём на себя",
     text: "Реклама, проверка водителей, выдача, возврат, обслуживание и разбор ситуаций — без вашего участия в операционке.",
-    image: "/advantages/full-service.png",
-    imageAlt: "Выдача автомобиля клиенту парка Демидов Парк",
+    image: "/renters/family.png",
+    imageAlt: "Клиенты автопроката Демидов Парк собираются в поездку",
   },
   {
     id: "fleet",

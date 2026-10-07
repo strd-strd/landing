@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BrandLink } from "@/app/brand-link";
 import { CONTACTS } from "@/lib/contacts";
 import { NAV_LINKS } from "@/lib/content";
 
@@ -10,7 +11,7 @@ export function SiteFooter() {
         <div>
           <Image src="/logo.svg" alt="Демидов Парк" width={134} height={32} unoptimized />
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            Инвестиции в доходные автомобили. Управляющая компания Демидов Парк
+            Инвестиции в доходные автомобили. Управляющая компания <BrandLink />{" "}
             сдаёт парк в аренду через{" "}
             <a
               href={CONTACTS.siteUrl}

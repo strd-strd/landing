@@ -1,3 +1,4 @@
+import { BrandLink, withBrandLinks } from "@/app/brand-link";
 import { CallbackForm } from "@/app/callback-form";
 import { BlogSwipeHint } from "@/app/blog-swipe-hint";
 import { HeroVideo } from "@/app/hero-video";
@@ -57,17 +58,9 @@ function Hero() {
           <span className="mt-1 block whitespace-nowrap">45&nbsp;000&nbsp;₽ в месяц</span>
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-          Автопрокат{" "}
-          <a
-            href="https://demidovpark.ru"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="brand-glow font-semibold underline-offset-4 transition-opacity duration-200 hover:opacity-90 hover:underline"
-          >
-            Демидов Парк
-          </a>{" "}
-          берёт машину в управление: арендаторы, реклама, ТО и выдача — на
-          компании. Вы получаете пассивный доход, пока занимаетесь своими делами.
+          Автопрокат <BrandLink /> берёт машину в управление: арендаторы, реклама,
+          ТО и выдача — на компании. Вы получаете пассивный доход, пока занимаетесь
+          своими делами.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <a
@@ -137,7 +130,7 @@ function Income() {
               {RENTAL_SITE_HOST}
             </a>
             {" "}
-            — это основная точка сдачи парка Демидов Парк в аренду. Ваша машина
+            — это основная точка сдачи парка <BrandLink /> в аренду. Ваша машина
             выходит в тот же поток клиентов, что и весь автопарк компании.
           </p>
         </div>
@@ -194,7 +187,7 @@ function EntryPool() {
                     {item.title}
                   </h3>
                   <p className="mt-4 text-sm leading-relaxed text-foreground drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)] sm:text-[0.95rem]">
-                    {item.text}
+                    {withBrandLinks(item.text)}
                   </p>
                 </div>
               </li>
@@ -221,7 +214,7 @@ function HowItWorks() {
         <h2 className="font-serif text-4xl text-foreground sm:text-5xl">Как это работает</h2>
         <p className="mt-4 max-w-2xl text-muted-foreground">
           Три шага. Без приложения «сдать соседу»: автомобиль работает в действующем
-          прокате Демидов Парк.
+          прокате <BrandLink />.
         </p>
         <ol className="mt-12 grid gap-6 md:grid-cols-3">
           {STEPS.map((step) => (
@@ -243,7 +236,7 @@ function HowItWorks() {
                 <h3 className="mt-3 text-xl font-semibold">{step.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {"text" in step ? (
-                    step.text
+                    withBrandLinks(step.text)
                   ) : (
                     <>
                       {step.textBefore}
@@ -255,7 +248,7 @@ function HowItWorks() {
                       >
                         {RENTAL_SITE_HOST}
                       </a>
-                      {step.textAfter}
+                      {withBrandLinks(step.textAfter)}
                     </>
                   )}
                 </p>
@@ -357,7 +350,9 @@ function Advantages() {
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   <h3 className="text-xl font-semibold">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {withBrandLinks(item.text)}
+                  </p>
                   {featured ? (
                     <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent">
                       Смотреть парк на сайте аренды
@@ -419,7 +414,7 @@ function Reviews() {
 
         <div className="mt-16">
           <h3 className="font-serif text-3xl text-foreground sm:text-4xl">
-            Отзывы клиентов автопроката Демидов Парк
+            Отзывы клиентов автопроката <BrandLink />
           </h3>
           <p className="mt-3 max-w-2xl text-muted-foreground">
             Реальные отзывы арендаторов с{" "}
@@ -457,7 +452,7 @@ function Lead() {
             «Цифры доходности я предпочитаю обсуждать лично.»
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Евгений Демидов, основатель Демидов Парк
+            Евгений Демидов, основатель <BrandLink />
           </p>
           <div className="mt-8 rounded-2xl border border-border bg-background px-5 py-5">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
@@ -506,7 +501,9 @@ function Faq() {
                 <span>{item.q}</span>
                 <ChevronIcon className="size-5 shrink-0 text-accent transition-transform duration-200 group-open:rotate-180" />
               </summary>
-              <p className="pb-4 text-sm leading-relaxed text-muted-foreground">{item.a}</p>
+              <p className="pb-4 text-sm leading-relaxed text-muted-foreground">
+                {withBrandLinks(item.a)}
+              </p>
             </details>
           ))}
         </div>

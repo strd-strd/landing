@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { BrandLink } from "@/app/brand-link";
 import { CloseIcon } from "@/app/icons";
 import { CONTACTS } from "@/lib/contacts";
 
@@ -103,8 +104,8 @@ export function OwnCarCalculator() {
             Так же можете отдать своё авто нам в управление
           </h2>
           <p className="mt-4 max-w-xl text-muted-foreground">
-            Машина выходит в прокат Демидов Парк: реклама, арендаторы, ТО и выдача — на
-            компании. Вы получаете выплаты. Ориентир ниже — при ставке{" "}
+            Машина выходит в прокат <BrandLink />: реклама, арендаторы, ТО и выдача —
+            на компании. Вы получаете выплаты. Ориентир ниже — при ставке{" "}
             <span className="whitespace-nowrap font-semibold text-accent">25% годовых</span>{" "}
             от оценочной стоимости.
           </p>

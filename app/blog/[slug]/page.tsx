@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { BrandLink, withBrandLinks } from "@/app/brand-link";
 import { BLOG_ARTICLES, getBlogArticle } from "@/lib/blog";
 import { CONTACTS } from "@/lib/contacts";
 
@@ -77,7 +78,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                       key={paragraph.slice(0, 48)}
                       className="text-base leading-relaxed text-muted-foreground"
                     >
-                      {paragraph}
+                      {withBrandLinks(paragraph)}
                     </p>
                   ))}
                 </div>
@@ -87,7 +88,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
 
           <div className="mt-12 rounded-2xl border border-border bg-card px-5 py-5">
             <p className="text-sm text-muted-foreground">
-              Полная версия статьи — на сайте проката Демидов Парк.
+              Полная версия статьи — на сайте проката <BrandLink />.
             </p>
             <a
               href={article.sourceUrl}
