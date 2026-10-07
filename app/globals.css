@@ -84,6 +84,31 @@ summary::-webkit-details-marker {
   display: none;
 }
 
+.brand-glow {
+  color: var(--accent);
+  text-shadow:
+    0 0 0.35rem rgba(226, 172, 107, 0.55),
+    0 0 1rem rgba(226, 172, 107, 0.35),
+    0 0 1.75rem rgba(226, 172, 107, 0.2);
+  animation: brand-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes brand-glow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 0.3rem rgba(226, 172, 107, 0.45),
+      0 0 0.85rem rgba(226, 172, 107, 0.28),
+      0 0 1.5rem rgba(226, 172, 107, 0.14);
+  }
+  50% {
+    text-shadow:
+      0 0 0.45rem rgba(226, 172, 107, 0.75),
+      0 0 1.25rem rgba(226, 172, 107, 0.5),
+      0 0 2.25rem rgba(226, 172, 107, 0.28);
+  }
+}
+
 .btn-shimmer {
   position: relative;
   overflow: hidden;
@@ -169,6 +194,10 @@ html[data-sticky-cta="1"] .contact-widget {
   .btn-shimmer::before {
     animation: none;
     display: none;
+  }
+
+  .brand-glow {
+    animation: none;
   }
 
   .swipe-hint-hand {

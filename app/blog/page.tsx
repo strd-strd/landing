@@ -5,9 +5,9 @@ import { BLOG_ARTICLES } from "@/lib/blog";
 import { CONTACTS } from "@/lib/contacts";
 
 export const metadata: Metadata = {
-  title: "Блог | Demidov Park",
+  title: "Блог | Демидов Парк",
   description:
-    "Статьи об аренде автомобилей, рынке проката и инвестициях в доходный автопарк Demidov Park.",
+    "Статьи об аренде автомобилей, рынке проката и инвестициях в доходный автопарк Демидов Парк.",
 };
 
 export default function BlogPage() {
@@ -27,7 +27,7 @@ export default function BlogPage() {
               rel="noopener noreferrer"
               className="font-semibold text-accent underline-offset-4 transition-opacity duration-200 hover:opacity-90 hover:underline"
             >
-              demidovpremium.ru
+              demidovpark.ru
             </a>
             {" "}
             — в кратком изложении для инвесторов и клиентов парка.

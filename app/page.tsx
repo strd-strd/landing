@@ -18,7 +18,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-const RENTAL_SITE_HOST = "demidovpremium.ru";
+const RENTAL_SITE_HOST = "demidovpark.ru";
 
 export default function Home() {
   return (
@@ -55,16 +55,16 @@ function Hero() {
           <span className="mt-1 block whitespace-nowrap">45&nbsp;000&nbsp;₽ в месяц</span>
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-          Автопрокат Демидов Парк (
+          Автопрокат{" "}
           <a
-            href={CONTACTS.siteUrl}
+            href="https://demidovpark.ru"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-accent underline-offset-4 transition-opacity duration-200 hover:opacity-90 hover:underline"
+            className="brand-glow font-semibold underline-offset-4 transition-opacity duration-200 hover:opacity-90 hover:underline"
           >
-            demidovpremium.ru
-          </a>
-          ) берёт машину в управление: арендаторы, реклама, ТО и выдача — на
+            Демидов Парк
+          </a>{" "}
+          берёт машину в управление: арендаторы, реклама, ТО и выдача — на
           компании. Вы получаете пассивный доход, пока занимаетесь своими делами.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -135,7 +135,7 @@ function Income() {
               {RENTAL_SITE_HOST}
             </a>
             {" "}
-            — это основная точка сдачи парка Demidov Park в аренду. Ваша машина
+            — это основная точка сдачи парка Демидов Парк в аренду. Ваша машина
             выходит в тот же поток клиентов, что и весь автопарк компании.
           </p>
         </div>
@@ -191,7 +191,7 @@ function HowItWorks() {
         <h2 className="font-serif text-4xl text-foreground sm:text-5xl">Как это работает</h2>
         <p className="mt-4 max-w-2xl text-muted-foreground">
           Три шага. Без приложения «сдать соседу»: автомобиль работает в действующем
-          прокате Demidov Park.
+          прокате Демидов Парк.
         </p>
         <ol className="mt-12 grid gap-6 md:grid-cols-3">
           {STEPS.map((step) => (
@@ -261,7 +261,7 @@ function MidCta() {
           <div className="relative size-40 overflow-hidden rounded-full border-2 border-accent/50 sm:size-48">
             <Image
               src="/advantages/founder.jpg"
-              alt="Евгений Демидов, основатель Demidov Park"
+              alt="Евгений Демидов, основатель Демидов Парк"
               fill
               sizes="192px"
               className="object-cover object-top"
@@ -389,7 +389,7 @@ function Reviews() {
 
         <div className="mt-16">
           <h3 className="font-serif text-3xl text-foreground sm:text-4xl">
-            Отзывы клиентов автопроката Demidov Park
+            Отзывы клиентов автопроката Демидов Парк
           </h3>
           <p className="mt-3 max-w-2xl text-muted-foreground">
             Реальные отзывы арендаторов с{" "}
@@ -427,7 +427,7 @@ function Lead() {
             «Цифры доходности я предпочитаю обсуждать лично.»
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Евгений Демидов, основатель Demidov Park
+            Евгений Демидов, основатель Демидов Парк
           </p>
           <div className="mt-8 rounded-2xl border border-border bg-background px-5 py-5">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
@@ -449,7 +449,7 @@ function Lead() {
           <div className="relative size-48 overflow-hidden rounded-full border-2 border-accent/50 sm:size-56">
             <Image
               src="/advantages/founder.jpg"
-              alt="Евгений Демидов, основатель Demidov Park"
+              alt="Евгений Демидов, основатель Демидов Парк"
               fill
               sizes="224px"
               className="object-cover object-top"
@@ -496,7 +496,7 @@ function BlogPreview() {
               Статьи
             </h2>
             <p className="mt-4 max-w-xl text-muted-foreground">
-              Материалы с demidovpremium.ru
+              Материалы с demidovpark.ru
             </p>
           </div>
           <Link

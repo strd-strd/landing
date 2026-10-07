@@ -57,7 +57,7 @@ export function MyReviewsWidget() {
       <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card">
         <iframe
           id="myReviews__block-widget"
-          title="Отзывы клиентов автопроката Demidov Park"
+          title="Отзывы клиентов автопроката Демидов Парк"
           className="block min-h-[420px] w-full border-0 outline-none"
         />
       </div>

@@ -8,9 +8,9 @@ export function SiteFooter() {
     <footer id="kontakty" className="border-t border-border bg-card">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_1fr_1fr]">
         <div>
-          <Image src="/logo.svg" alt="Demidov Park" width={134} height={32} unoptimized />
+          <Image src="/logo.svg" alt="Демидов Парк" width={134} height={32} unoptimized />
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            Инвестиции в доходные автомобили. Управляющая компания Demidov Park
+            Инвестиции в доходные автомобили. Управляющая компания Демидов Парк
             сдаёт парк в аренду через{" "}
             <a
               href={CONTACTS.siteUrl}
@@ -18,7 +18,7 @@ export function SiteFooter() {
               rel="noopener noreferrer"
               className="text-accent transition-opacity duration-200 hover:opacity-90"
             >
-              demidovpremium.ru
+              demidovpark.ru
             </a>
             . Нижний Новгород, с 2016 года.
           </p>
@@ -66,7 +66,7 @@ export function SiteFooter() {
             href={CONTACTS.siteUrl}
             className="mt-3 inline-flex min-h-11 cursor-pointer items-center text-sm text-accent transition-opacity duration-200 hover:opacity-90"
           >
-            demidovpremium.ru
+            demidovpark.ru
           </a>
           <a
             href={CONTACTS.mapUrl}
@@ -76,7 +76,7 @@ export function SiteFooter() {
             aria-label={`Открыть карту: ${CONTACTS.city}, ${CONTACTS.address}`}
           >
             <iframe
-              title={`Офис Demidov Park — ${CONTACTS.address}`}
+              title={`Офис Демидов Парк — ${CONTACTS.address}`}
               src={`https://www.openstreetmap.org/export/embed.html?bbox=${Number(CONTACTS.mapLon) - 0.012}%2C${Number(CONTACTS.mapLat) - 0.007}%2C${Number(CONTACTS.mapLon) + 0.012}%2C${Number(CONTACTS.mapLat) + 0.007}&layer=mapnik&marker=${CONTACTS.mapLat}%2C${CONTACTS.mapLon}`}
               className="pointer-events-none h-40 w-full border-0"
               loading="lazy"

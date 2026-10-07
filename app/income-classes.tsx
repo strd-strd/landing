@@ -4,6 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { INCOME_CLASSES } from "@/lib/content";
 
+function hasIncomeFigures(item: (typeof INCOME_CLASSES)[number]) {
+  return /\d/.test(item.month) && /\d/.test(item.year);
+}
+
 export function IncomeClasses() {
   const [activeId, setActiveId] = useState<(typeof INCOME_CLASSES)[number]["id"]>(
     INCOME_CLASSES[1].id,
@@ -57,16 +61,31 @@ export function IncomeClasses() {
           <div className="min-w-0 flex-1">
             <p className="text-sm uppercase tracking-[0.18em] text-accent">{active.title}</p>
             <p className="mt-2 text-muted-foreground">{active.example}</p>
-            <div className="mt-5 grid gap-5 sm:grid-cols-2">
-              <div>
-                <p className="font-serif text-3xl text-foreground sm:text-4xl">{active.month}</p>
-                <p className="mt-1 text-sm text-muted-foreground">ориентир в месяц</p>
+            {hasIncomeFigures(active) ? (
+              <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                <div className="min-w-0">
+                  <p className="whitespace-nowrap font-serif text-2xl leading-tight text-foreground sm:text-3xl">
+                    {active.month}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">ориентир в месяц</p>
+                </div>
+                <div className="min-w-0">
+                  <p className="whitespace-nowrap font-serif text-2xl leading-tight text-foreground sm:text-3xl">
+                    {active.year}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">ориентир за год</p>
+                </div>
               </div>
-              <div>
-                <p className="font-serif text-3xl text-foreground sm:text-4xl">{active.year}</p>
-                <p className="mt-1 text-sm text-muted-foreground">ориентир за год</p>
+            ) : (
+              <div className="mt-5">
+                <p className="font-serif text-2xl leading-snug text-foreground sm:text-3xl">
+                  {active.month}
+                </p>
+                <p className="mt-1 font-serif text-xl leading-snug text-muted-foreground sm:text-2xl">
+                  {active.year}
+                </p>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

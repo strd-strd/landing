@@ -20,15 +20,15 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     date: "2025-12-01",
     dateLabel: "2025",
     image: "/cars/premium.jpg",
-    imageAlt: "Премиальный автомобиль из парка Demidov Park",
+    imageAlt: "Премиальный автомобиль из парка Демидов Парк",
     sourceUrl:
-      "https://demidovpremium.ru/tpost/ptggg1u6t1-analiz-rinka-arendi-avto-v-rossii-trendi",
-    sourceLabel: "demidovpremium.ru",
+      "https://demidovpark.ru/tpost/ptggg1u6t1-analiz-rinka-arendi-avto-v-rossii-trendi",
+    sourceLabel: "demidovpark.ru",
     sections: [
       {
         paragraphs: [
           "Рынок аренды автомобилей в России меняется: всё меньше людей воспринимают прокат как временную замену личной машины и всё чаще — как удобный сервис. Растут стоимость владения, запрос на комфорт и деловая мобильность — и вместе с ними меняются ожидания клиентов.",
-          "Ниже — краткий разбор ключевых трендов на 2025–2026 годы по материалам блога Demidov Park. Полный текст — на сайте проката.",
+          "Ниже — краткий разбор ключевых трендов на 2025–2026 годы по материалам блога Демидов Парк. Полный текст — на сайте проката.",
         ],
       },
       {
@@ -63,15 +63,15 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     date: "2024-10-19",
     dateLabel: "19 октября 2024",
     image: "/cars/business.jpg",
-    imageAlt: "Бизнес-седан из парка Demidov Park",
+    imageAlt: "Бизнес-седан из парка Демидов Парк",
     sourceUrl:
-      "https://demidovpremium.ru/tpost/esczzrzr91-avtomobilnii-biznes-kuda-dvizhemsya-i-ch",
-    sourceLabel: "demidovpremium.ru",
+      "https://demidovpark.ru/tpost/esczzrzr91-avtomobilnii-biznes-kuda-dvizhemsya-i-ch",
+    sourceLabel: "demidovpark.ru",
     sections: [
       {
         paragraphs: [
           "Автомобильный бизнес сегодня — не только производство машин, а экосистема технологий, сервиса и новых моделей владения. Электрификация, автопилот, каршеринг и экология переписывают привычные правила.",
-          "Краткий обзор главных направлений — по статье Demidov Park. Полная версия доступна на сайте проката.",
+          "Краткий обзор главных направлений — по статье Демидов Парк. Полная версия доступна на сайте проката.",
         ],
       },
       {
@@ -100,18 +100,18 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     slug: "7-oshibok-arendatorov-avto",
     title: "7 ошибок арендаторов авто, которые приводят к лишним расходам",
     excerpt:
-      "Неверный класс машины, осмотр при выдаче, топливо, пробег и страховка — типичные промахи и как их избежать в прокате Demidov Park.",
+      "Неверный класс машины, осмотр при выдаче, топливо, пробег и страховка — типичные промахи и как их избежать в прокате Демидов Парк.",
     date: "2025-01-15",
     dateLabel: "2025",
     image: "/cars/econom.jpg",
-    imageAlt: "Автомобиль эконом-класса из парка Demidov Park",
+    imageAlt: "Автомобиль эконом-класса из парка Демидов Парк",
     sourceUrl:
-      "https://demidovpremium.ru/tpost/nnjy1e8kr1-7-oshibok-arendatorov-avto-kotorie-privo",
-    sourceLabel: "demidovpremium.ru",
+      "https://demidovpark.ru/tpost/nnjy1e8kr1-7-oshibok-arendatorov-avto-kotorie-privo",
+    sourceLabel: "demidovpark.ru",
     sections: [
       {
         paragraphs: [
-          "Даже опытные водители иногда переплачивают за аренду из‑за простых ошибок. По материалам блога Demidov Park — семь самых частых и как их обойти. Полный разбор — на сайте проката.",
+          "Даже опытные водители иногда переплачивают за аренду из‑за простых ошибок. По материалам блога Демидов Парк — семь самых частых и как их обойти. Полный разбор — на сайте проката.",
         ],
       },
       {
@@ -124,7 +124,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       {
         heading: "Время, топливо и пробег",
         paragraphs: [
-          "Опоздание на 20–30 минут иногда тянет доплату: график выдачи плотный. Продлевать лучше заранее — в Demidov Park это можно удалённо.",
+          "Опоздание на 20–30 минут иногда тянет доплату: график выдачи плотный. Продлевать лучше заранее — в Демидов Парк это можно удалённо.",
           "Возврат с меньшим уровнем топлива обходится дороже, чем заправка на АЗС. Лимит пробега тоже стоит проверить заранее — особенно на поездки в Москву или Казань.",
           "И комплектацию: климат, подогрев, камера — чтобы не менять машину уже после выдачи.",
         ],
@@ -139,14 +139,14 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     date: "2025-02-10",
     dateLabel: "2025",
     image: "/renters/business.png",
-    imageAlt: "Деловая поездка на автомобиле из парка Demidov Park",
+    imageAlt: "Деловая поездка на автомобиле из парка Демидов Парк",
     sourceUrl:
-      "https://demidovpremium.ru/tpost/n331m6y4k1-pochemu-arenda-avtomobilya-udobnee-chem",
-    sourceLabel: "demidovpremium.ru",
+      "https://demidovpark.ru/tpost/n331m6y4k1-pochemu-arenda-avtomobilya-udobnee-chem",
+    sourceLabel: "demidovpark.ru",
     sections: [
       {
         paragraphs: [
-          "Такси кажется простым: сел — поехал. Но при регулярных деловых поездках аренда часто выгоднее по времени, деньгам и имиджу. Краткий вывод по статье Demidov Park — ниже; полный список из 12 причин — на сайте.",
+          "Такси кажется простым: сел — поехал. Но при регулярных деловых поездках аренда часто выгоднее по времени, деньгам и имиджу. Краткий вывод по статье Демидов Парк — ниже; полный список из 12 причин — на сайте.",
         ],
       },
       {
@@ -166,20 +166,20 @@ export const BLOG_ARTICLES: BlogArticle[] = [
   },
   {
     slug: "arenda-avto-bez-zaloga",
-    title: "Аренда авто без залога в Нижнем Новгороде — реальность с Demidov Park",
+    title: "Аренда авто без залога в Нижнем Новгороде — реальность с Демидов Парк",
     excerpt:
       "Когда депозит не нужен, какие документы и условия, и почему прозрачный сервис без заморозки денег повышает спрос на прокат.",
     date: "2025-03-04",
     dateLabel: "4 марта 2025",
     image: "/cars/comfort.jpg",
-    imageAlt: "Кроссовер из парка Demidov Park",
+    imageAlt: "Кроссовер из парка Демидов Парк",
     sourceUrl:
-      "https://demidovpremium.ru/tpost/tukd9ghgn1-arenda-avto-bez-zaloga-v-nizhnem-novgoro",
-    sourceLabel: "demidovpremium.ru",
+      "https://demidovpark.ru/tpost/tukd9ghgn1-arenda-avto-bez-zaloga-v-nizhnem-novgoro",
+    sourceLabel: "demidovpark.ru",
     sections: [
       {
         paragraphs: [
-          "Многие ищут аренду без крупного депозита — чтобы не замораживать деньги на время проката. В Demidov Park такая опция доступна при соблюдении условий. Кратко — по статье с сайта проката.",
+          "Многие ищут аренду без крупного депозита — чтобы не замораживать деньги на время проката. В Демидов Парк такая опция доступна при соблюдении условий. Кратко — по статье с сайта проката.",
         ],
       },
       {

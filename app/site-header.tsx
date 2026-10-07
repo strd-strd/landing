@@ -33,12 +33,12 @@ export function SiteHeader() {
       <div className="mx-auto flex h-[var(--header-height)] w-full max-w-6xl items-center justify-between gap-2 px-4 sm:gap-3 sm:px-6">
         <Link
           href="/"
-          aria-label="Demidov Park — на главную"
+          aria-label="Демидов Парк — на главную"
           className="flex min-h-11 shrink-0 cursor-pointer items-center"
         >
           <Image
             src="/logo.svg"
-            alt="Demidov Park"
+            alt="Демидов Парк"
             width={120}
             height={28}
             className="h-7 w-auto"

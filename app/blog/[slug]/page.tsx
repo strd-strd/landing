@@ -19,10 +19,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = getBlogArticle(slug);
   if (!article) {
-    return { title: "Статья | Demidov Park" };
+    return { title: "Статья | Демидов Парк" };
   }
   return {
-    title: `${article.title} | Demidov Park`,
+    title: `${article.title} | Демидов Парк`,
     description: article.excerpt,
   };
 }
@@ -87,7 +87,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
 
           <div className="mt-12 rounded-2xl border border-border bg-card px-5 py-5">
             <p className="text-sm text-muted-foreground">
-              Полная версия статьи — на сайте проката Demidov Park.
+              Полная версия статьи — на сайте проката Демидов Парк.
             </p>
             <a
               href={article.sourceUrl}

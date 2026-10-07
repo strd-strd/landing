@@ -1,5 +1,5 @@
 export const CONTACTS = {
-  brand: "Demidov Park",
+  brand: "Демидов Парк",
   phoneDisplay: "+7 904 059 12 22",
   phoneHref: "tel:+79040591222",
   telegramUrl: "https://t.me/demidovautopark",
@@ -11,7 +11,7 @@ export const CONTACTS = {
   legalName: 'ООО «Демидов Парк»',
   inn: "5260497961",
   ogrn: "1245200031867",
-  siteUrl: "https://demidovpremium.ru",
+  siteUrl: "https://demidovpark.ru",
   mapLat: "56.3097427",
   mapLon: "44.0703641",
   mapUrl:
