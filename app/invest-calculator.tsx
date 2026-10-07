@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 const ANNUAL_RATE = 0.25;
@@ -20,16 +21,36 @@ export function InvestCalculator() {
   return (
     <section id="kalkulyator" className="border-t border-border bg-card/40 px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-center">
-        <div>
-          <p className="text-sm uppercase tracking-[0.18em] text-accent">Калькулятор вложений</p>
-          <h2 className="mt-3 max-w-xl font-serif text-4xl text-foreground sm:text-5xl">
-            Сколько можно получать от суммы в пуле
-          </h2>
-          <p className="mt-4 max-w-xl text-muted-foreground">
-            Выберите объём входа от 100&nbsp;000&nbsp;₽. Ориентир доходности —{" "}
-            <span className="whitespace-nowrap font-semibold text-accent">25% годовых</span>. Точные
-            доля и условия фиксируются на встрече.
-          </p>
+        <div className="relative overflow-hidden rounded-2xl border border-accent/30 min-h-[16rem] sm:min-h-[18rem]">
+          <Image
+            src="/rubles-backdrop.jpg"
+            alt=""
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover brightness-75 saturate-90"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-background/92 via-background/78 to-background/55"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(226,172,107,0.16),transparent_60%)]"
+            aria-hidden="true"
+          />
+          <div className="relative z-10 flex h-full flex-col justify-center p-6 sm:p-8">
+            <p className="text-sm uppercase tracking-[0.18em] text-accent">
+              Калькулятор вложений
+            </p>
+            <h2 className="mt-3 max-w-xl font-serif text-4xl text-foreground sm:text-5xl">
+              Сколько можно получать от суммы в пуле
+            </h2>
+            <p className="mt-4 max-w-xl text-muted-foreground">
+              Выберите объём входа от 100&nbsp;000&nbsp;₽. Ориентир доходности —{" "}
+              <span className="whitespace-nowrap font-semibold text-accent">25% годовых</span>.
+              Точные доля и условия фиксируются на встрече.
+            </p>
+          </div>
         </div>
 
         <div className="rounded-2xl border border-accent/50 bg-card p-6 shadow-[0_12px_32px_rgba(226,172,107,0.14)] sm:p-8">
