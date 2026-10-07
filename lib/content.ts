@@ -34,22 +34,26 @@ export const TRUST_STRIP = [
 
 export const ENTRY_HIGHLIGHTS = [
   {
+    id: "entry",
     title: "От 100\u00A0000\u00A0₽",
     text: "Понятный порог входа. Точная доля и доходность зависят от модели и условий пула — фиксируем на встрече.",
     image: "/steps/03-income.png",
     imageAlt: "Доход инвестора от автомобиля в парке",
   },
   {
+    id: "pool",
     title: "Пул инвесторов",
     text: "Собираем пул, покупаем автомобиль в парк Демидов Парк и распределяем доход пропорционально вкладу.",
-    image: "/advantages/fleet.jpg",
-    imageAlt: "Автомобили парка Демидов Парк для пула инвесторов",
+    image: "/cars/business.jpg",
+    imageAlt: "Автомобиль парка Демидов Парк для пула инвесторов",
+    imageFit: "contain" as const,
   },
   {
+    id: "manage",
     title: "Управление на компании",
     text: "Реклама, арендаторы, ТО, страхование и выдача — на нас. Вы получаете выплаты, а не операционку.",
-    image: "/advantages/full-service.png",
-    imageAlt: "Управление и выдача автомобилей Демидов Парк",
+    image: "/advantages/insurance.png",
+    imageAlt: "Обслуживание автомобиля в управляющей компании Демидов Парк",
   },
 ] as const;
 

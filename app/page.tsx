@@ -4,6 +4,7 @@ import { HeroVideo } from "@/app/hero-video";
 import { ChevronIcon } from "@/app/icons";
 import { IncomeClasses } from "@/app/income-classes";
 import { MyReviewsWidget } from "@/app/my-reviews-widget";
+import { OwnCarCalculator } from "@/app/own-car-calculator";
 import { BLOG_ARTICLES } from "@/lib/blog";
 import { CONTACTS } from "@/lib/contacts";
 import {
@@ -26,6 +27,7 @@ export default function Home() {
       <Hero />
       <Income />
       <EntryPool />
+      <OwnCarCalculator />
       <HowItWorks />
       <MidCta />
       <Advantages />
@@ -157,36 +159,47 @@ function EntryPool() {
           Ориентир обсуждается на встрече — без скрытого «от миллиона».
         </p>
         <ul className="mt-12 grid gap-5 md:grid-cols-3 md:gap-6">
-          {ENTRY_HIGHLIGHTS.map((item) => (
-            <li
-              key={item.title}
-              className="group relative flex min-h-[20rem] flex-col overflow-hidden rounded-2xl border border-accent/55 bg-card shadow-[0_10px_28px_rgba(226,172,107,0.14)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-[0_16px_40px_rgba(226,172,107,0.28)] sm:min-h-[22rem]"
-            >
-              <Image
-                src={item.image}
-                alt={item.imageAlt}
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover brightness-125 contrast-110 saturate-110 transition-transform duration-300 group-hover:scale-[1.04]"
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-background/92 via-background/40 to-background/10"
-                aria-hidden="true"
-              />
-              <div
-                className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(226,172,107,0.32),transparent_60%)]"
-                aria-hidden="true"
-              />
-              <div className="relative z-10 flex h-full flex-col justify-end px-6 py-8 sm:px-7 sm:py-9">
-                <h3 className="font-serif text-3xl leading-tight text-foreground drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] sm:text-[2rem]">
-                  {item.title}
-                </h3>
-                <p className="mt-4 text-sm leading-relaxed text-foreground drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)] sm:text-[0.95rem]">
-                  {item.text}
-                </p>
-              </div>
-            </li>
-          ))}
+          {ENTRY_HIGHLIGHTS.map((item) => {
+            const contain = "imageFit" in item && item.imageFit === "contain";
+            return (
+              <li
+                key={item.id}
+                className="group relative flex min-h-[20rem] flex-col overflow-hidden rounded-2xl border border-accent/55 bg-card shadow-[0_10px_28px_rgba(226,172,107,0.14)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-[0_16px_40px_rgba(226,172,107,0.28)] sm:min-h-[22rem]"
+              >
+                <Image
+                  src={item.image}
+                  alt={item.imageAlt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className={`${
+                    contain
+                      ? "object-contain object-center p-3 brightness-110 contrast-105"
+                      : "object-cover brightness-125 contrast-110 saturate-110"
+                  } transition-transform duration-300 group-hover:scale-[1.03]`}
+                />
+                <div
+                  className={`absolute inset-0 ${
+                    contain
+                      ? "bg-gradient-to-t from-background/95 via-background/55 to-background/25"
+                      : "bg-gradient-to-t from-background/92 via-background/40 to-background/10"
+                  }`}
+                  aria-hidden="true"
+                />
+                <div
+                  className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(226,172,107,0.32),transparent_60%)]"
+                  aria-hidden="true"
+                />
+                <div className="relative z-10 flex h-full flex-col justify-end px-6 py-8 sm:px-7 sm:py-9">
+                  <h3 className="font-serif text-3xl leading-tight text-foreground drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] sm:text-[2rem]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 text-sm leading-relaxed text-foreground drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)] sm:text-[0.95rem]">
+                    {item.text}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
         </ul>
         <div className="mt-10">
           <a
