@@ -160,14 +160,31 @@ function EntryPool() {
           {ENTRY_HIGHLIGHTS.map((item) => (
             <li
               key={item.title}
-              className="group flex h-full flex-col rounded-2xl border border-border bg-card px-6 py-8 transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-[0_12px_32px_rgba(226,172,107,0.12)] sm:px-7 sm:py-9"
+              className="group relative flex min-h-[20rem] flex-col overflow-hidden rounded-2xl border border-accent/55 bg-card shadow-[0_10px_28px_rgba(226,172,107,0.14)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-accent hover:shadow-[0_16px_40px_rgba(226,172,107,0.28)] sm:min-h-[22rem]"
             >
-              <h3 className="font-serif text-3xl leading-tight text-foreground sm:text-[2rem]">
-                {item.title}
-              </h3>
-              <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground sm:text-[0.95rem]">
-                {item.text}
-              </p>
+              <Image
+                src={item.image}
+                alt={item.imageAlt}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover brightness-125 contrast-110 saturate-110 transition-transform duration-300 group-hover:scale-[1.04]"
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-background/92 via-background/40 to-background/10"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(226,172,107,0.32),transparent_60%)]"
+                aria-hidden="true"
+              />
+              <div className="relative z-10 flex h-full flex-col justify-end px-6 py-8 sm:px-7 sm:py-9">
+                <h3 className="font-serif text-3xl leading-tight text-foreground drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)] sm:text-[2rem]">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-sm leading-relaxed text-foreground drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)] sm:text-[0.95rem]">
+                  {item.text}
+                </p>
+              </div>
             </li>
           ))}
         </ul>
