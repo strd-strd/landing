@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { FormHoneypot } from "@/app/form-honeypot";
 import { CloseIcon, TelegramIcon } from "@/app/icons";
 import { CONTACTS } from "@/lib/contacts";
+import { clientAntispamFromForm } from "@/lib/form-antispam";
 import { LEAD_POPUP_EVENT, type LeadPopupDetail } from "@/lib/lead-popup";
 
 export function LeadPopup() {
@@ -15,6 +17,7 @@ export function LeadPopup() {
   const [year, setYear] = useState("");
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
+  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
 
   const titleId = useId();
@@ -31,6 +34,7 @@ export function LeadPopup() {
       setPhone("");
       setConsent(false);
       setError("");
+      setSending(false);
       setSent(false);
       setOpen(true);
     }
@@ -54,8 +58,9 @@ export function LeadPopup() {
     };
   }, [open]);
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formEl = event.currentTarget;
     const trimmedName = name.trim();
     const trimmedPhone = phone.replace(/\s/g, "");
     if (trimmedName.length < 2) {
@@ -70,8 +75,46 @@ export function LeadPopup() {
       setError("Нужно согласие на обработку персональных данных.");
       return;
     }
+
+    const antispam = clientAntispamFromForm(formEl);
+    if (!antispam.ok) {
+      if (antispam.reason === "honeypot" || antispam.reason === "no-js") {
+        setError("");
+        setSent(true);
+        return;
+      }
+      if (antispam.reason === "too-fast") {
+        setError("Подождите секунду и отправьте форму ещё раз.");
+        return;
+      }
+      setError("Не удалось отправить заявку. Обновите страницу и попробуйте снова.");
+      return;
+    }
+
     setError("");
-    setSent(true);
+    setSending(true);
+    try {
+      const body = new FormData(formEl);
+      body.set("source", "popup");
+      body.set("name", trimmedName);
+      body.set("phone", trimmedPhone);
+      body.set("title", detail.title ?? "Заявка на консультацию");
+      if (detail.context) body.set("context", detail.context);
+      body.set("car", car.trim());
+      body.set("year", year.trim());
+
+      const response = await fetch("/api/lead", { method: "POST", body });
+      const data = (await response.json()) as { ok?: boolean; error?: string };
+      if (!response.ok || !data.ok) {
+        setError(data.error || "Не удалось отправить заявку.");
+        return;
+      }
+      setSent(true);
+    } catch {
+      setError("Не удалось отправить заявку. Проверьте соединение и попробуйте снова.");
+    } finally {
+      setSending(false);
+    }
   }
 
   if (!open) return null;
@@ -121,7 +164,8 @@ export function LeadPopup() {
           <div>
             <p className="font-semibold text-foreground">Заявка принята</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              Напишите Евгению в Telegram — так быстрее ответим. {CONTACTS.hours}.
+              Мы получили контакты. Если удобнее — напишите Евгению в Telegram.{" "}
+              {CONTACTS.hours}.
             </p>
             <a
               href={CONTACTS.telegramUrl}
@@ -134,7 +178,8 @@ export function LeadPopup() {
             </a>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="flex flex-col gap-4" noValidate>
+          <form onSubmit={onSubmit} className="relative flex flex-col gap-4" noValidate>
+            <FormHoneypot />
             {detail.car !== undefined || detail.year !== undefined ? (
               <>
                 <label className="block text-sm font-medium">
@@ -209,9 +254,10 @@ export function LeadPopup() {
             ) : null}
             <button
               type="submit"
-              className="btn-shimmer min-h-12 cursor-pointer rounded-lg bg-accent px-5 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
+              disabled={sending}
+              className="btn-shimmer min-h-12 cursor-pointer rounded-lg bg-accent px-5 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
             >
-              Отправить заявку
+              {sending ? "Отправляем…" : "Отправить заявку"}
             </button>
           </form>
         )}
