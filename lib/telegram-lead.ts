@@ -3,6 +3,8 @@
  * Секреты только из env, не логируем токен и сырые ПДн.
  */
 
+import { logError } from "@/lib/app-log";
+
 export type InvestLeadPayload = {
   name: string;
   phone: string;
@@ -52,7 +54,11 @@ export async function sendInvestLeadToManager(
   const chatId = getLeadChatId();
 
   if (!token || !chatId) {
-    console.error("[web] lead: не настроен TOKEN_TELEGRAM или LEAD_TELEGRAM_CHAT_ID");
+    logError("web", "lead: не настроен TOKEN_TELEGRAM или LEAD_TELEGRAM_CHAT_ID", {
+      hasToken: Boolean(token),
+      hasChatId: Boolean(chatId),
+      source: payload.source,
+    });
     return {
       ok: false,
       error: "Заявка временно не принимается. Напишите в Telegram или позвоните.",
@@ -73,8 +79,10 @@ export async function sendInvestLeadToManager(
     });
     const data = (await res.json()) as { ok?: boolean; description?: string };
     if (!res.ok || !data.ok) {
-      console.error("[web] lead: sendMessage failed", {
+      logError("web", "lead: sendMessage failed", {
         description: data.description || `HTTP ${res.status}`,
+        source: payload.source,
+        phoneLen: payload.phone.length,
       });
       return {
         ok: false,
@@ -83,8 +91,9 @@ export async function sendInvestLeadToManager(
     }
     return { ok: true };
   } catch (error) {
-    console.error("[web] lead: telegram network error", {
+    logError("web", "lead: telegram network error", {
       message: error instanceof Error ? error.message : "unknown",
+      source: payload.source,
     });
     return {
       ok: false,

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { logError, logWarn } from "@/lib/app-log";
 import {
   allowLeadByIp,
   checkFormAntispam,
@@ -25,7 +26,7 @@ export async function POST(request: Request) {
 
     const antispam = checkFormAntispam(form);
     if (!antispam.ok) {
-      console.error("[web] lead: spam blocked", { reason: antispam.reason, ip });
+      logWarn("web", "lead: spam blocked", { reason: antispam.reason, ip });
       return silentOk();
     }
 
@@ -50,7 +51,7 @@ export async function POST(request: Request) {
     const phone = phoneE164(phoneRaw);
 
     if (!allowLeadByIp(ip)) {
-      console.error("[web] lead: spam blocked", { reason: "rate-limit", ip });
+      logWarn("web", "lead: rate-limit", { ip, source });
       return NextResponse.json(
         {
           error:
@@ -71,12 +72,13 @@ export async function POST(request: Request) {
     });
 
     if (!result.ok) {
+      // Детали уже ушли в logError внутри sendInvestLeadToManager (+ алерт админу)
       return NextResponse.json({ error: result.error }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    console.error("[web] lead: unexpected error", {
+    logError("web", "lead: unexpected error", {
       message: error instanceof Error ? error.message : "unknown",
     });
     return NextResponse.json(
