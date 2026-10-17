@@ -73,4 +73,4 @@ console.error("[web] landing error", { route, status, code });
 
 Локальные скилы в `.agents/skills/` (как в Proekt1): `agent-browser`, `beget-deploy`, `finishing-a-development-branch`, `git-workflow-and-versioning`, `resolving-merge-conflicts`, `ui-ux-pro-max`, `vercel-composition-patterns`, `vercel-react-best-practices`, `web-design-guidelines`. Список и хеши — `skills-lock.json`.
 
-Скил `beget-deploy` сейчас описывает прод Proekt1 (`лишков.рф`, PM2 `proect-1`). Для этого репозитория не применять, пока не будет отдельной задачи на деплой лендинга.
+Скил `beget-deploy` — деплой **этого** репо на Beget: `/var/www/investdemidov`, порт **3005**, PM2 `investdemidov`, домен `invest.demidovpark.ru`. Не путать с Proekt1 (`:3000`) и demidovpark (`:3004`).

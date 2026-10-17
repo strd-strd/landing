@@ -23,6 +23,7 @@
 
 **Домен:** invest.demidovpark.ru  
 **Стек:** Next.js 16 · React 19 · Tailwind 4 (токены как у demidovpark)  
+**Деплой:** Beget VPS · `/var/www/investdemidov` · PM2 `investdemidov` · порт **3005** · nginx `deploy/nginx-invest.conf`  
 **v1:** маркетинг вложений (пул от 100k / своё авто) + калькуляторы + лид + блог + SEO. Без кабинета инвестора.
 
 ---
@@ -94,8 +95,10 @@
 ### Продукт / техника
 
 - [done] `POST /api/lead` + антиспам + Telegram (`TOKEN_TELEGRAM`, `LEAD_TELEGRAM_CHAT_ID`)
+- [done] Артефакты Beget: `ecosystem.config.cjs`, `deploy/nginx-invest.conf`, `scripts/deploy-on-server.sh`, скилл beget-deploy (`/var/www/investdemidov`)
+- [todo] DNS A `invest.demidovpark.ru` → `82.202.129.89`
+- [todo] Первый перенос на VPS (clone → `.env.local` → build → pm2 → nginx → certbot) — команды в beget-deploy skill
 - [todo] Заполнить env на проде и прогнать тест заявки (форма + попап)
-- [todo] Прод-деплой invest.demidovpark.ru + `SITE_URL` / env
 - [idea] Куки-баннер паритет с demidovpark
 - [idea] Кейс-страницы «автомобиль инвестора» под SEO
 
