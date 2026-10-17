@@ -36,13 +36,12 @@ export function CallbackForm() {
 
     const antispam = clientAntispamFromForm(formEl);
     if (!antispam.ok) {
-      if (antispam.reason === "honeypot" || antispam.reason === "no-js") {
-        setError("");
-        setSent(true);
-        return;
-      }
       if (antispam.reason === "too-fast") {
         setError("Подождите секунду и отправьте форму ещё раз.");
+        return;
+      }
+      if (antispam.reason === "too-old") {
+        setError("Форма устарела. Обновите страницу и отправьте заявку ещё раз.");
         return;
       }
       setError("Не удалось отправить заявку. Обновите страницу и попробуйте снова.");

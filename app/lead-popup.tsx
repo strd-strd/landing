@@ -24,6 +24,8 @@ export function LeadPopup() {
 
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
+  /** Сброс honeypot-таймера при каждом открытии попапа. */
+  const [formKey, setFormKey] = useState(0);
 
   useEffect(() => {
     function onOpen(event: Event) {
@@ -38,6 +40,7 @@ export function LeadPopup() {
       setError("");
       setSending(false);
       setSent(false);
+      setFormKey((key) => key + 1);
       setOpen(true);
     }
     window.addEventListener(LEAD_POPUP_EVENT, onOpen);
@@ -79,13 +82,12 @@ export function LeadPopup() {
 
     const antispam = clientAntispamFromForm(formEl);
     if (!antispam.ok) {
-      if (antispam.reason === "honeypot" || antispam.reason === "no-js") {
-        setError("");
-        setSent(true);
-        return;
-      }
       if (antispam.reason === "too-fast") {
         setError("Подождите секунду и отправьте форму ещё раз.");
+        return;
+      }
+      if (antispam.reason === "too-old") {
+        setError("Форма устарела. Закройте окно, откройте заявку снова и отправьте ещё раз.");
         return;
       }
       setError("Не удалось отправить заявку. Обновите страницу и попробуйте снова.");
@@ -144,11 +146,6 @@ export function LeadPopup() {
               {title}
             </p>
             <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
-            {detail.context ? (
-              <p className="mt-3 rounded-lg border border-accent/30 bg-background/70 px-3 py-2 text-sm text-foreground">
-                {detail.context}
-              </p>
-            ) : null}
           </div>
           <button
             ref={closeRef}
@@ -179,7 +176,12 @@ export function LeadPopup() {
             </a>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="relative flex flex-col gap-4" noValidate>
+          <form
+            key={formKey}
+            onSubmit={onSubmit}
+            className="relative flex flex-col gap-4"
+            noValidate
+          >
             <FormHoneypot />
             {detail.car !== undefined || detail.year !== undefined ? (
               <>
