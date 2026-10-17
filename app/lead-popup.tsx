@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { FormHoneypot } from "@/app/form-honeypot";
 import { CloseIcon, TelegramIcon } from "@/app/icons";
+import { PhoneInput } from "@/app/phone-input";
 import { CONTACTS } from "@/lib/contacts";
 import { clientAntispamFromForm } from "@/lib/form-antispam";
 import { LEAD_POPUP_EVENT, type LeadPopupDetail } from "@/lib/lead-popup";
+import { isValidRuPhone, phoneE164 } from "@/lib/phone-mask";
 
 export function LeadPopup() {
   const [open, setOpen] = useState(false);
@@ -62,13 +64,12 @@ export function LeadPopup() {
     event.preventDefault();
     const formEl = event.currentTarget;
     const trimmedName = name.trim();
-    const trimmedPhone = phone.replace(/\s/g, "");
     if (trimmedName.length < 2) {
       setError("Укажите имя.");
       return;
     }
-    if (trimmedPhone.length < 10) {
-      setError("Укажите телефон.");
+    if (!isValidRuPhone(phone)) {
+      setError("Укажите телефон в формате +7 (XXX) XXX-XX-XX.");
       return;
     }
     if (!consent) {
@@ -97,7 +98,7 @@ export function LeadPopup() {
       const body = new FormData(formEl);
       body.set("source", "popup");
       body.set("name", trimmedName);
-      body.set("phone", trimmedPhone);
+      body.set("phone", phoneE164(phone));
       body.set("title", detail.title ?? "Заявка на консультацию");
       if (detail.context) body.set("context", detail.context);
       body.set("car", car.trim());
@@ -219,12 +220,9 @@ export function LeadPopup() {
             </label>
             <label className="block text-sm font-medium">
               Телефон
-              <input
-                type="tel"
-                name="phone"
-                autoComplete="tel"
+              <PhoneInput
                 value={phone}
-                onChange={(event) => setPhone(event.target.value)}
+                onChange={setPhone}
                 className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
               />
             </label>

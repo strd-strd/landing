@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
+import { CloseIcon, MenuIcon, PhoneIcon } from "@/app/icons";
+import { LeadCta } from "@/app/lead-cta";
 import { CONTACTS } from "@/lib/contacts";
 import { HEADER_NAV_LINKS, NAV_LINKS } from "@/lib/content";
-import { CloseIcon, MenuIcon, PhoneIcon } from "@/app/icons";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -70,12 +71,7 @@ export function SiteHeader() {
             <PhoneIcon className="size-4 shrink-0" />
             <span className="hidden whitespace-nowrap 2xl:inline">{CONTACTS.phoneDisplay}</span>
           </a>
-          <Link
-            href="/#zayavka"
-            className="btn-shimmer hidden min-h-11 cursor-pointer items-center whitespace-nowrap rounded-lg bg-accent px-3 text-sm font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90 sm:inline-flex xl:px-4"
-          >
-            Консультация
-          </Link>
+          <LeadCta variant="header">Консультация</LeadCta>
           <button
             type="button"
             className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg border border-border text-foreground xl:hidden"
@@ -112,13 +108,9 @@ export function SiteHeader() {
               <PhoneIcon className="size-4" />
               {CONTACTS.phoneDisplay}
             </a>
-            <Link
-              href="/#zayavka"
-              className="btn-shimmer mt-2 flex min-h-11 cursor-pointer items-center justify-center rounded-lg bg-accent px-4 font-semibold text-on-accent"
-              onClick={() => setOpen(false)}
-            >
+            <LeadCta variant="headerMobile" onAfterOpen={() => setOpen(false)}>
               Получить консультацию
-            </Link>
+            </LeadCta>
           </nav>
         </div>
       ) : null}

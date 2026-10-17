@@ -4,6 +4,7 @@ import {
   checkFormAntispam,
   getRequestIp,
 } from "@/lib/form-antispam";
+import { isValidRuPhone, phoneE164 } from "@/lib/phone-mask";
 import { sendInvestLeadToManager } from "@/lib/telegram-lead";
 
 export const runtime = "nodejs";
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
     }
 
     const name = asString(form.get("name"));
-    const phone = asString(form.get("phone")).replace(/\s/g, "");
+    const phoneRaw = asString(form.get("phone"));
     const sourceRaw = asString(form.get("source"));
     const source = sourceRaw === "popup" ? "popup" : "callback";
     const context = asString(form.get("context"));
@@ -40,9 +41,13 @@ export async function POST(request: Request) {
     if (name.length < 2) {
       return NextResponse.json({ error: "Укажите имя." }, { status: 400 });
     }
-    if (phone.length < 10) {
-      return NextResponse.json({ error: "Укажите телефон." }, { status: 400 });
+    if (!isValidRuPhone(phoneRaw)) {
+      return NextResponse.json(
+        { error: "Укажите телефон в формате +7 (XXX) XXX-XX-XX." },
+        { status: 400 },
+      );
     }
+    const phone = phoneE164(phoneRaw);
 
     if (!allowLeadByIp(ip)) {
       console.error("[web] lead: spam blocked", { reason: "rate-limit", ip });

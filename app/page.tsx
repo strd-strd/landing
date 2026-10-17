@@ -5,6 +5,7 @@ import { HeroVideo } from "@/app/hero-video";
 import { ChevronIcon } from "@/app/icons";
 import { IncomeClasses } from "@/app/income-classes";
 import { InvestCalculator } from "@/app/invest-calculator";
+import { LeadCta } from "@/app/lead-cta";
 import { MyReviewsWidget } from "@/app/my-reviews-widget";
 import { OwnCarCalculator } from "@/app/own-car-calculator";
 import { BLOG_ARTICLES } from "@/lib/blog";
@@ -64,12 +65,15 @@ function Hero() {
           своими делами.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a
-            href="#zayavka"
-            className="btn-shimmer inline-flex min-h-12 cursor-pointer items-center justify-center rounded-lg bg-accent px-6 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
+          <LeadCta
+            detail={{
+              title: "Получить консультацию",
+              subtitle: "Евгений разберёт вход в пул и условия на встрече.",
+              context: "Источник: hero",
+            }}
           >
             Получить консультацию
-          </a>
+          </LeadCta>
           <a
             href="#kak"
             className="btn-shimmer inline-flex min-h-12 cursor-pointer items-center justify-center rounded-lg border-2 border-foreground/80 px-6 font-semibold text-foreground transition-colors duration-200 hover:border-accent hover:text-accent"
@@ -198,12 +202,15 @@ function EntryPool() {
           })}
         </ul>
         <div className="mt-10">
-          <a
-            href="#zayavka"
-            className="btn-shimmer inline-flex min-h-12 cursor-pointer items-center justify-center rounded-lg bg-accent px-6 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
+          <LeadCta
+            detail={{
+              title: "Вход в пул инвесторов",
+              subtitle: "От 100 000 ₽. Евгений разберёт долю и условия на встрече.",
+              context: "Источник: блок входа от 100 000 ₽",
+            }}
           >
             Получить консультацию
-          </a>
+          </LeadCta>
         </div>
       </div>
     </section>
@@ -259,12 +266,16 @@ function HowItWorks() {
             </li>
           ))}
         </ol>
-        <a
-          href="#zayavka"
+        <LeadCta
           className="btn-shimmer mt-10 inline-flex min-h-12 cursor-pointer items-center justify-center rounded-lg bg-accent px-6 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
+          detail={{
+            title: "Оставить заявку",
+            subtitle: "Евгений Демидов разберёт вход, долю и условия лично.",
+            context: "Источник: как это работает",
+          }}
         >
           Оставить заявку
-        </a>
+        </LeadCta>
       </div>
     </section>
   );
@@ -294,12 +305,15 @@ function MidCta() {
             />
           </div>
           <div className="flex flex-col items-center gap-2">
-            <a
-              href="#zayavka"
-              className="btn-shimmer inline-flex min-h-12 cursor-pointer items-center justify-center rounded-lg bg-accent px-6 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
+            <LeadCta
+              detail={{
+                title: "Встреча с Евгением",
+                subtitle: "От 100 000 ₽ через пул. Разберём модель, долю и сроки.",
+                context: "Источник: mid CTA с фото основателя",
+              }}
             >
               Получить консультацию
-            </a>
+            </LeadCta>
             <a
               href={CONTACTS.phoneHref}
               className="inline-flex min-h-11 cursor-pointer items-center justify-center px-2 text-sm text-muted-foreground transition-colors duration-200 hover:text-accent"

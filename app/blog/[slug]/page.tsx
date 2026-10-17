@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BrandLink, withBrandLinks } from "@/app/brand-link";
+import { LeadCta } from "@/app/lead-cta";
 import { BLOG_ARTICLES, getBlogArticle } from "@/lib/blog";
 
 type BlogArticlePageProps = {
@@ -105,12 +106,16 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
             <p className="text-sm text-muted-foreground">
               Интересен вход в пул инвесторов от 100 000 ₽?
             </p>
-            <Link
-              href="/#zayavka"
-              className="btn-shimmer inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-accent/60 px-5 text-sm font-semibold text-accent transition-colors duration-200 hover:bg-accent/10"
+            <LeadCta
+              variant="outline"
+              detail={{
+                title: "Консультация по инвестициям",
+                subtitle: "Евгений разберёт вход от 100 000 ₽ и условия пула.",
+                context: `Источник: статья «${article.title}»`,
+              }}
             >
               Получить консультацию
-            </Link>
+            </LeadCta>
           </div>
         </div>
       </article>
