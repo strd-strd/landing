@@ -1,6 +1,8 @@
-import { BRAND_SHORT, CONTACTS } from "@/lib/contacts";
-import { FAQ_ITEMS } from "@/lib/content";
-import { absoluteUrl, getSiteUrl } from "@/lib/site-url";
+import type { BlogArticle } from "./blog";
+import { BRAND_SHORT, CONTACTS } from "./contacts";
+import { FAQ_ITEMS } from "./content";
+import { OG_IMAGE_PATH } from "./seo";
+import { absoluteUrl, getSiteUrl } from "./site-url";
 
 export function buildOrganizationJsonLd() {
   const site = getSiteUrl();
@@ -13,7 +15,8 @@ export function buildOrganizationJsonLd() {
     description:
       "Инвестиции в доходные автомобили в Нижнем Новгороде: пул инвесторов и сдача своего авто в управление прокату Демидов Парк.",
     url: site,
-    image: absoluteUrl("/logo.svg"),
+    image: absoluteUrl(OG_IMAGE_PATH),
+    logo: absoluteUrl("/logo.svg"),
     telephone: CONTACTS.phoneHref.replace("tel:", ""),
     address: {
       "@type": "PostalAddress",
@@ -79,5 +82,45 @@ export function buildWebSiteJsonLd() {
     description: "Инвестиции в доходные автомобили в Нижнем Новгороде",
     publisher: { "@id": `${site}/#organization` },
     inLanguage: "ru-RU",
+  };
+}
+
+type ArticleJsonLdInput = Pick<
+  BlogArticle,
+  "slug" | "title" | "excerpt" | "date" | "image" | "imageAlt"
+>;
+
+/** Article JSON-LD для страницы блога. */
+export function buildArticleJsonLd(article: ArticleJsonLdInput) {
+  const site = getSiteUrl();
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt,
+    image: {
+      "@type": "ImageObject",
+      url: absoluteUrl(article.image),
+      caption: article.imageAlt,
+    },
+    datePublished: article.date,
+    author: {
+      "@type": "Organization",
+      name: BRAND_SHORT,
+      "@id": `${site}/#organization`,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: BRAND_SHORT,
+      "@id": `${site}/#organization`,
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/logo.svg"),
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": absoluteUrl(`/blog/${article.slug}`),
+    },
   };
 }

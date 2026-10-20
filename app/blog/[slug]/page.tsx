@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { BrandLink, withBrandLinks } from "@/app/brand-link";
 import { LeadCta } from "@/app/lead-cta";
 import { BLOG_ARTICLES, getBlogArticle } from "@/lib/blog";
+import { buildArticleJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata } from "@/lib/seo";
 
 type BlogArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -20,12 +22,21 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = getBlogArticle(slug);
   if (!article) {
-    return { title: "Статья | Демидов Парк" };
+    return buildPageMetadata({
+      title: "Статья",
+      description: "Статья об инвестициях в доходные автомобили — Демидов Парк.",
+      path: `/blog/${slug}`,
+      noIndex: true,
+    });
   }
-  return {
-    title: `${article.title} | Демидов Парк`,
+  return buildPageMetadata({
+    title: article.title,
     description: article.excerpt,
-  };
+    path: `/blog/${article.slug}`,
+    type: "article",
+    imagePath: article.image,
+    imageAlt: article.imageAlt,
+  });
 }
 
 export default async function BlogArticlePage({ params }: BlogArticlePageProps) {
@@ -35,8 +46,14 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     notFound();
   }
 
+  const articleJsonLd = buildArticleJsonLd(article);
+
   return (
     <main id="main" className="border-t border-border">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <article className="px-4 pb-20 pt-[calc(var(--header-height)+2.5rem)] sm:px-6 sm:pb-24 sm:pt-[calc(var(--header-height)+3.5rem)]">
         <div className="mx-auto w-full max-w-3xl">
           <Link

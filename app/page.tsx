@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { BrandLink, withBrandLinks } from "@/app/brand-link";
 import { CallbackForm } from "@/app/callback-form";
 import { BlogSwipeHint } from "@/app/blog-swipe-hint";
@@ -18,10 +21,15 @@ import {
   STEPS,
   TRUST_STRIP,
 } from "@/lib/content";
-import Image from "next/image";
-import Link from "next/link";
+import { buildPageMetadata, HOME_DESCRIPTION, HOME_TITLE } from "@/lib/seo";
 
 const RENTAL_SITE_HOST = "demidovpark.ru";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+  path: "/",
+});
 
 export default function Home() {
   return (
@@ -55,14 +63,19 @@ function Hero() {
           Инвестиции в авто · {CONTACTS.city}
         </p>
         <h1 className="mt-5 max-w-4xl text-4xl font-semibold uppercase leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-          <span className="block">Инвестируйте в доходные автомобили</span>
-          <span className="block">и зарабатывайте от</span>
-          <span className="mt-1 block whitespace-nowrap">45&nbsp;000&nbsp;₽ в месяц</span>
+          <span className="block">Инвестиции в доходные автомобили</span>
+          <span className="block">в Нижнем Новгороде</span>
         </h1>
-        <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+        <p className="mt-4 max-w-2xl text-lg font-medium text-accent sm:text-xl">
+          Ориентир дохода от{" "}
+          <span className="whitespace-nowrap">45&nbsp;000&nbsp;₽</span> в месяц —
+          не оферта, условия на встрече
+        </p>
+        <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
           Автопрокат <BrandLink /> берёт машину в управление: арендаторы, реклама,
           ТО и выдача — на компании. Вы получаете пассивный доход, пока занимаетесь
-          своими делами.
+          своими делами. Вход в пул — от{" "}
+          <span className="whitespace-nowrap">100&nbsp;000&nbsp;₽</span>.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <LeadCta

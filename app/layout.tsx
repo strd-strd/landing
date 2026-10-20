@@ -1,15 +1,22 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import { ContactWidget } from "@/app/contact-widget";
 import { LeadPopup } from "@/app/lead-popup";
 import { SiteFooter } from "@/app/site-footer";
 import { SiteHeader } from "@/app/site-header";
 import { StickyInvestCta } from "@/app/sticky-invest-cta";
+import { BRAND_SHORT } from "@/lib/contacts";
 import {
   buildFaqJsonLd,
   buildOrganizationJsonLd,
   buildWebSiteJsonLd,
 } from "@/lib/json-ld";
+import {
+  HOME_DESCRIPTION,
+  HOME_TITLE,
+  SITE_NAME,
+  ogImage,
+} from "@/lib/seo";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -27,17 +34,64 @@ const cormorant = Cormorant_Garamond({
 });
 
 const siteUrl = getSiteUrl();
+const defaultOg = ogImage();
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#11100f",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Инвестиции в доходные автомобили | Демидов Парк",
-    template: "%s | Демидов Парк",
+    default: `${HOME_TITLE} | ${BRAND_SHORT}`,
+    template: `%s | ${BRAND_SHORT}`,
   },
-  description:
-    "Инвестируйте в автомобиль в Нижнем Новгороде: Демидов Парк берёт машину в управление и сдаёт в аренду. Пассивный доход от парка с 2016 года.",
-  alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
+  description: HOME_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: "Евгений Демидов" }],
+  creator: BRAND_SHORT,
+  publisher: BRAND_SHORT,
+  keywords: [
+    "инвестиции в автомобили",
+    "доходный автопарк",
+    "пул инвесторов",
+    "сдать авто в управление",
+    "Нижний Новгород",
+    "Демидов Парк",
+    "пассивный доход авто",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    url: siteUrl,
+    siteName: SITE_NAME,
+    title: `${HOME_TITLE} | ${BRAND_SHORT}`,
+    description: HOME_DESCRIPTION,
+    images: [defaultOg],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${HOME_TITLE} | ${BRAND_SHORT}`,
+    description: HOME_DESCRIPTION,
+    images: [defaultOg.url],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png" }],
+    apple: [{ url: "/apple-icon.png", type: "image/png" }],
+  },
+  category: "finance",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

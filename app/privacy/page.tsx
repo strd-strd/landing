@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BRAND_SHORT, CONTACTS } from "@/lib/contacts";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Политика конфиденциальности | Демидов Парк",
-  description: `Политика обработки персональных данных — ${BRAND_SHORT}, инвестиции в автомобили, Нижний Новгород.`,
-  alternates: { canonical: "/privacy" },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Политика конфиденциальности",
+  description: `Политика обработки персональных данных — ${BRAND_SHORT}, инвестиции в автомобили, ${CONTACTS.city}.`,
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

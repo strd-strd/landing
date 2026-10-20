@@ -2,12 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { BLOG_ARTICLES } from "@/lib/blog";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Блог | Демидов Парк — инвестиции",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Блог об инвестициях в автопарк",
   description:
-    "Статьи об инвестициях в автопарк: пул от 100 000 ₽, своё авто в управление, доходность ~25% и риски.",
-};
+    "Пул инвесторов от 100 000 ₽, своё авто в управление, доходность ~25% и риски — материалы для инвесторов Демидов Парк в Нижнем Новгороде.",
+  path: "/blog",
+});
 
 export default function BlogPage() {
   return (
@@ -16,7 +18,7 @@ export default function BlogPage() {
         <div className="mx-auto w-full max-w-6xl">
           <p className="text-sm uppercase tracking-[0.18em] text-accent">Блог</p>
           <h1 className="mt-3 max-w-3xl font-serif text-4xl text-foreground sm:text-5xl">
-            Инвестиции в автопарк без лишнего шума
+            Инвестиции в автопарк: статьи и разборы
           </h1>
           <p className="mt-4 max-w-2xl text-muted-foreground">
             Пул инвесторов, своё авто в управление, расчёт доходности и риски — материалы
@@ -39,19 +41,18 @@ export default function BlogPage() {
                       className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                   </div>
-                  <div className="flex flex-1 flex-col p-6">
+                  <div className="flex flex-1 flex-col p-5 sm:p-6">
                     <p className="text-xs uppercase tracking-[0.16em] text-accent">
                       {article.dateLabel}
                     </p>
-                    <h2 className="mt-3 font-serif text-2xl text-foreground sm:text-3xl">
+                    <h2 className="mt-2 font-serif text-2xl text-foreground">
                       {article.title}
                     </h2>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                    <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-muted-foreground">
                       {article.excerpt}
                     </p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-accent">
-                      Читать
-                      <span aria-hidden="true">→</span>
+                    <span className="mt-4 text-sm font-semibold text-accent">
+                      Читать →
                     </span>
                   </div>
                 </Link>
