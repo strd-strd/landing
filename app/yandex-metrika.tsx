@@ -3,17 +3,19 @@
 import Script from "next/script";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef } from "react";
+import { useCookieConsentAccepted } from "@/app/cookie-banner";
 import { YANDEX_METRIKA_ID } from "@/lib/analytics";
 
 export { YANDEX_METRIKA_ID };
 
 /** Клиентские переходы App Router: первый просмотр уже в init. */
-function MetrikaRouteHits() {
+function MetrikaRouteHits({ enabled }: { enabled: boolean }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const skipFirst = useRef(true);
 
   useEffect(() => {
+    if (!enabled) return;
     if (skipFirst.current) {
       skipFirst.current = false;
       return;
@@ -21,16 +23,20 @@ function MetrikaRouteHits() {
     if (typeof window.ym !== "function") return;
     const url = `${pathname}${searchParams?.toString() ? `?${searchParams}` : ""}`;
     window.ym(YANDEX_METRIKA_ID, "hit", url);
-  }, [pathname, searchParams]);
+  }, [enabled, pathname, searchParams]);
 
   return null;
 }
 
 /**
- * Яндекс.Метрика. На invest пока нет cookie-баннера — грузим сразу
- * (у demidovpark — после согласия).
+ * Загружается только после «Хорошо» на cookie-баннере (паритет demidovpark).
+ * GTM остаётся в layout сразу.
  */
 export function YandexMetrika() {
+  const accepted = useCookieConsentAccepted();
+
+  if (!accepted) return null;
+
   return (
     <>
       <Script id="yandex-metrika" strategy="afterInteractive">{`
@@ -53,7 +59,7 @@ ym(${YANDEX_METRIKA_ID}, 'init', {
 });
 `}</Script>
       <Suspense fallback={null}>
-        <MetrikaRouteHits />
+        <MetrikaRouteHits enabled={accepted} />
       </Suspense>
       <noscript>
         <div>

@@ -25,6 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    {
+      url: `${base}/consent`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
     ...BLOG_ARTICLES.map((article) => ({
       url: `${base}/blog/${article.slug}`,
       lastModified: new Date(article.date),

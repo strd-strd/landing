@@ -22,12 +22,6 @@ export function SiteFooter() {
             <br />
             ОГРН {CONTACTS.ogrn}
           </p>
-          <Link
-            href="/privacy"
-            className="mt-4 inline-flex min-h-11 cursor-pointer items-center text-sm text-accent underline-offset-4 hover:underline"
-          >
-            Политика конфиденциальности
-          </Link>
         </div>
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-accent">
@@ -71,8 +65,19 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-border px-4 py-6 text-center text-xs text-muted-foreground sm:px-6">
-        Информация на сайте носит справочный характер и не является публичной
-        офертой. © {new Date().getFullYear()} {CONTACTS.legalName}
+        <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+          <Link href="/privacy" className="text-accent underline-offset-4 hover:underline">
+            Политика конфиденциальности
+          </Link>
+          <span aria-hidden="true">·</span>
+          <Link href="/consent" className="text-accent underline-offset-4 hover:underline">
+            Согласие на обработку ПДн
+          </Link>
+        </p>
+        <p className="mt-2">
+          Информация на сайте носит справочный характер и не является публичной офертой. ©{" "}
+          {new Date().getFullYear()} {CONTACTS.legalName}
+        </p>
       </div>
     </footer>
   );

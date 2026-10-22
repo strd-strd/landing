@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
+import { ConsentCheckbox } from "@/app/consent-checkbox";
 import { FormHoneypot } from "@/app/form-honeypot";
 import { PhoneInput } from "@/app/phone-input";
 import { CONTACTS } from "@/lib/contacts";
@@ -104,21 +104,11 @@ export function CallbackForm() {
             className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground transition-colors duration-200"
           />
         </label>
-        <label className="flex cursor-pointer items-start gap-3 text-sm text-muted-foreground">
-          <input
-            type="checkbox"
-            checked={consent}
-            onChange={(event) => setConsent(event.target.checked)}
-            className="mt-1 size-4 cursor-pointer accent-accent"
-          />
-          <span>
-            Соглашаюсь на{" "}
-            <Link href="/privacy" className="text-accent underline-offset-2 hover:underline">
-              обработку персональных данных
-            </Link>
-            .
-          </span>
-        </label>
+        <ConsentCheckbox
+          id="callback-pdn-consent"
+          checked={consent}
+          onChange={setConsent}
+        />
         {error ? (
           <p className="text-sm text-destructive" role="alert">
             {error}

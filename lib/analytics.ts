@@ -70,7 +70,7 @@ function queueMetrikaGoal(goal: string, params?: GoalParams): void {
   }, 500);
 }
 
-/** dataLayer сразу; Метрика — сразу или после загрузки счётчика (до ~20 с). */
+/** dataLayer сразу; Метрика — после cookie-согласия и/или загрузки счётчика (до ~20 с). */
 export function trackGoal(
   goal: AnalyticsGoal | string,
   params?: GoalParams,

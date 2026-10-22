@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import { AnalyticsGoals } from "@/app/analytics-goals";
 import { ContactWidget } from "@/app/contact-widget";
+import { CookieBanner } from "@/app/cookie-banner";
 import { GoogleTagManager } from "@/app/google-tag-manager";
 import { LeadPopup } from "@/app/lead-popup";
 import { SiteFooter } from "@/app/site-footer";
@@ -128,6 +129,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ContactWidget />
         <StickyInvestCta />
         <LeadPopup />
+        <CookieBanner />
         <YandexMetrika />
         <AnalyticsGoals />
       </body>

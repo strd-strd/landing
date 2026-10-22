@@ -1,8 +1,10 @@
 export const BRAND_SHORT = "Демидов Парк";
 
+/** Юрлицо / адрес / часы — паритет demidovpark; телефон — канал invest. */
 export const CONTACTS = {
   brand: BRAND_SHORT,
   brandShort: BRAND_SHORT,
+  /** Телефон заявок invest (не путать с прокатом +7 904 059 12 22). */
   phoneDisplay: "+7 908 230 04 40",
   phoneHref: "tel:+79082300440",
   telegramUrl: "https://t.me/demidovPark",

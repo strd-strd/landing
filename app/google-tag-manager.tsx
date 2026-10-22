@@ -5,7 +5,7 @@ export const GTM_ID = "GTM-N8FQWSJQ";
 
 /**
  * GTM в исходнике страницы сразу (для Tag Assistant / установки контейнера).
- * Метрика по-прежнему отдельно.
+ * Метрика — после cookie-баннера (как demidovpark).
  */
 export function GoogleTagManager() {
   return (

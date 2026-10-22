@@ -32,14 +32,14 @@
 
 - [done] Лендинг: оффер, классы дохода, калькуляторы (пул / своё авто), FAQ, доверие
 - [done] Убраны шаблонные отзывы «Андрей / Марина» — секция на MyReviews арендаторов парка
-- [done] `/privacy` + ссылки согласия у чекбоксов (форма + попап)
+- [done] `/privacy` + `/consent` + cookie-баннер; чекбоксы с ссылками на оба (форма + попап)
 - [done] Карта офиса, JSON-LD, `sitemap` / `robots`
 - [done] Sticky CTA с гистерезисом (как demidovpark)
 - [done] Попап заявки с контекстом (сумма / марка·год из калькулятора)
 - [done] Блог: статьи про инвестиции, не рерайты арендных
 - [done] Единые design tokens с demidovpark
 - [done] Антиспам форм (honeypot + JS-токен + таймер + rate-limit) — паритет demidovpark; `POST /api/lead`
-- [done] Яндекс.Метрика `113736873` (webvisor/clickmap) + цели `lead_thanks` / `phone_click` / `messenger_*`; без cookie-баннера пока грузим сразу
+- [done] Яндекс.Метрика `113736873` (webvisor/clickmap) + цели `lead_thanks` / `phone_click` / `messenger_*`; Метрика после «Хорошо» на cookie-баннере; GTM `GTM-N8FQWSJQ` сразу
 
 ---
 
@@ -103,7 +103,7 @@
 - [todo] Первый перенос на VPS (clone → `.env.local` → build → pm2 → nginx → certbot) — команды в beget-deploy skill
 - [todo] Заполнить env на проде и прогнать тест заявки (форма + попап)
 - [idea] Telegram-бот / Mini App invest (эмитить `bot_start` / `miniapp_open` / `question` через `/api/bot/track`)
-- [idea] Куки-баннер паритет с demidovpark (тогда Метрику — только после согласия)
+- [done] Куки-баннер паритет с demidovpark (Метрика только после согласия)
 - [idea] Кейс-страницы «автомобиль инвестора» под SEO
 - [todo] В кабинете Метрики: JS-цель `lead_thanks` + привязка к Директу; после деплоя проверить hit на /spasibo
 

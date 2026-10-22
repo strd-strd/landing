@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { ConsentCheckbox } from "@/app/consent-checkbox";
 import { FormHoneypot } from "@/app/form-honeypot";
 import { CloseIcon } from "@/app/icons";
 import { PhoneInput } from "@/app/phone-input";
@@ -229,25 +229,11 @@ export function LeadPopup() {
               className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
             />
           </label>
-          <label className="flex cursor-pointer items-start gap-3 text-sm text-muted-foreground">
-            <input
-              type="checkbox"
-              checked={consent}
-              onChange={(event) => setConsent(event.target.checked)}
-              className="mt-1 size-4 cursor-pointer accent-accent"
-            />
-            <span>
-              Соглашаюсь на{" "}
-              <Link
-                href="/privacy"
-                className="text-accent underline-offset-2 hover:underline"
-                onClick={(event) => event.stopPropagation()}
-              >
-                обработку персональных данных
-              </Link>
-              .
-            </span>
-          </label>
+          <ConsentCheckbox
+            id="lead-popup-pdn-consent"
+            checked={consent}
+            onChange={setConsent}
+          />
           {error ? (
             <p className="text-sm text-destructive" role="alert">
               {error}
