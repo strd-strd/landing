@@ -78,6 +78,17 @@ export function SiteFooter() {
           Информация на сайте носит справочный характер и не является публичной офертой. ©{" "}
           {new Date().getFullYear()} {CONTACTS.legalName}
         </p>
+        <p className="mt-2">
+          Разработка и продвижение сайта —{" "}
+          <a
+            href="https://lishkov.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-accent underline-offset-4 transition-opacity hover:underline hover:opacity-90"
+          >
+            Denis Lishkov
+          </a>
+        </p>
       </div>
     </footer>
   );
