@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BRAND_SHORT, CONTACTS } from "@/lib/contacts";
-import { absoluteUrl, getSiteUrl } from "@/lib/site-url";
+import { absoluteUrl } from "@/lib/site-url";
 
 export const SITE_NAME = `${BRAND_SHORT} — инвестиции`;
 
@@ -44,15 +44,15 @@ export function buildPageMetadata({
   type = "website",
   noIndex = false,
 }: PageSeoInput): Metadata {
-  const site = getSiteUrl();
   const url = absoluteUrl(path);
   const image = ogImage(imagePath, imageAlt);
   const fullTitle = title.includes(BRAND_SHORT) ? title : `${title} | ${BRAND_SHORT}`;
 
   return {
-    title,
+    /** absolute — без повторного `| бренд` из layout.template */
+    title: { absolute: fullTitle },
     description,
-    alternates: { canonical: path },
+    alternates: { canonical: url },
     openGraph: {
       type,
       locale: "ru_RU",

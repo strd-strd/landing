@@ -4,7 +4,7 @@ import { BRAND_SHORT, CONTACTS } from "@/lib/contacts";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: `Спасибо · ${BRAND_SHORT}`,
+  title: "Спасибо — заявка принята",
   description:
     "Заявка на консультацию по инвестициям принята. Мы свяжемся с вами.",
   path: "/spasibo",

@@ -33,7 +33,8 @@
 - [done] Лендинг: оффер, классы дохода, калькуляторы (пул / своё авто), FAQ, доверие
 - [done] Убраны шаблонные отзывы «Андрей / Марина» — секция на MyReviews арендаторов парка
 - [done] `/privacy` + `/consent` + cookie-баннер (паритет demidovpark); чекбоксы с ссылками на оба (форма + попап)
-- [done] Карта офиса, JSON-LD (Organization/LocalBusiness, WebSite, FAQPage на главной, BlogPosting + BreadcrumbList), `sitemap` / `robots`, `/llms.txt`
+- [done] Карта офиса, JSON-LD (Organization/LocalBusiness, WebSite, FAQPage на главной, BlogPosting + BreadcrumbList), `sitemap` / `robots` (AI-боты открыты), `/llms.txt`
+- [done] SEO/AEO/GEO аудит: absolute title/canonical, styled `not-found`, spasibo title без дубля бренда
 - [done] Sticky CTA с гистерезисом (как demidovpark)
 - [done] Попап заявки с контекстом (сумма / марка·год из калькулятора); закрытие попапа стабильно
 - [done] `/spasibo` + редирект после успешной заявки (форма и попап)
@@ -98,7 +99,7 @@
 
 1. [todo] Подтвердить на проде cookie-баннер + `/privacy` / `/consent` (если свежий деплой ещё не выкатывали)
 2. [todo] В кабинете Метрики: создать JS-цель `lead_thanks` + привязать к Директу; проверить hit на `/spasibo`
-3. [todo] Подтвердить GSC + Яндекс.Вебмастер; отправить sitemap (`https://invest.demidovpark.ru/sitemap.xml`); проверить `/llms.txt` и разметку в Rich Results / валидаторе Яндекса
+3. [todo] После redeploy: GSC + Яндекс.Вебмастер — sitemap; проверить `/llms.txt` (сейчас на проде 404 до выката), Rich Results (Org/FAQ/Article), `robots.txt` без блоков AI-ботов
 4. [todo] Кто отвечает на лиды / процесс и SLA после заявки
 
 ### Конверсия
