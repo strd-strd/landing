@@ -4,7 +4,7 @@
 
 import { logError } from "@/lib/app-log";
 import { addUserSegment } from "@/lib/bot-events-db";
-import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { getSupabaseAdmin, supabaseAdminDiag } from "@/lib/supabase-admin";
 
 export type LeadDeliverStatus = "pending" | "delivered" | "failed";
 
@@ -33,7 +33,7 @@ export async function saveLead(input: {
 }): Promise<string | null> {
   const db = getSupabaseAdmin();
   if (!db) {
-    logError("store", "saveLead: нет Supabase env");
+    logError("store", "saveLead: нет Supabase env", supabaseAdminDiag());
     return null;
   }
 
@@ -61,6 +61,7 @@ export async function saveLead(input: {
     if (error || !data) {
       logError("store", "saveLead failed", {
         message: error?.message ?? "no data",
+        ...supabaseAdminDiag(),
       });
       return null;
     }
@@ -72,6 +73,7 @@ export async function saveLead(input: {
   } catch (error) {
     logError("store", "saveLead exception", {
       message: error instanceof Error ? error.message : String(error),
+      ...supabaseAdminDiag(),
     });
     return null;
   }

@@ -17,7 +17,7 @@ export function getSupabaseServiceKeyKind(): SupabaseServiceKeyKind {
   if (!key) return "missing";
   if (
     key.startsWith("sb_publishable_") ||
-    key.startsWith("eyJ") && jwtRoleLooksPublic(key)
+    (key.startsWith("eyJ") && jwtRoleLooksPublic(key))
   ) {
     return "publishable_or_anon";
   }
