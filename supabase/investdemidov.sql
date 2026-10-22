@@ -1,8 +1,11 @@
 -- Invest Demidov: логи, заявки, бот/mini движения.
 -- Префикс InvestDemidov_ — можно в том же проекте Supabase, что и DemidovPark_*.
 -- Выполнить в SQL Editor (Dashboard → SQL → New query → Run).
--- После: в .env.local / на Beget — SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY.
+-- После: в .env.local / на Beget — SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
+--   (= Project Settings → API → service_role / secret, НЕ anon / publishable).
 -- Без wizard Next.js (ssr / middleware / NEXT_PUBLIC_ publishable).
+-- RLS включён; anon/authenticated без политик → insert с publishable даёт
+-- «new row violates row-level security policy». service_role обходит RLS.
 
 -- ---------------------------------------------------------------------------
 -- Логи сайта / будущего бота (console + DB; error/critical → алерт ID_OPS)
@@ -124,3 +127,16 @@ create index if not exists investdemidov_leads_deliver_status_idx
 alter table "InvestDemidov_leads" enable row level security;
 
 -- Доступ только через service role на сервере Next / будущего бота.
+-- GRANT явный (как в Proekt1): table privileges + обход RLS у роли service_role.
+-- Политик для anon/authenticated нет — публичный API закрыт.
+revoke all on table "InvestDemidov_logs" from anon, authenticated;
+revoke all on table "InvestDemidov_bot_users" from anon, authenticated;
+revoke all on table "InvestDemidov_bot_user_segments" from anon, authenticated;
+revoke all on table "InvestDemidov_bot_events" from anon, authenticated;
+revoke all on table "InvestDemidov_leads" from anon, authenticated;
+
+grant all on table "InvestDemidov_logs" to service_role;
+grant all on table "InvestDemidov_bot_users" to service_role;
+grant all on table "InvestDemidov_bot_user_segments" to service_role;
+grant all on table "InvestDemidov_bot_events" to service_role;
+grant all on table "InvestDemidov_leads" to service_role;

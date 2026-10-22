@@ -1,21 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { FormHoneypot } from "@/app/form-honeypot";
-import { TelegramIcon } from "@/app/icons";
 import { PhoneInput } from "@/app/phone-input";
 import { CONTACTS } from "@/lib/contacts";
 import { clientAntispamFromForm } from "@/lib/form-antispam";
 import { isValidRuPhone, phoneE164 } from "@/lib/phone-mask";
 
 export function CallbackForm() {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -61,36 +61,15 @@ export function CallbackForm() {
       const data = (await response.json()) as { ok?: boolean; error?: string };
       if (!response.ok || !data.ok) {
         setError(data.error || "Не удалось отправить заявку.");
+        setSending(false);
         return;
       }
-      setSent(true);
+      router.push("/spasibo");
+      return;
     } catch {
       setError("Не удалось отправить заявку. Проверьте соединение и попробуйте снова.");
-    } finally {
       setSending(false);
     }
-  }
-
-  if (sent) {
-    return (
-      <div className="rounded-2xl border border-accent/40 bg-card p-6">
-        <p className="font-serif text-2xl text-foreground">Заявка принята</p>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Мы получили контакты. Если удобнее — напишите Евгению в Telegram.
-        </p>
-        <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-          <a
-            href={CONTACTS.telegramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-shimmer inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg bg-accent px-4 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
-          >
-            <TelegramIcon className="size-5" />
-            Написать Евгению в Telegram
-          </a>
-        </div>
-      </div>
-    );
   }
 
   return (

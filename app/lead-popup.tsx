@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { FormHoneypot } from "@/app/form-honeypot";
-import { CloseIcon, TelegramIcon } from "@/app/icons";
+import { CloseIcon } from "@/app/icons";
 import { PhoneInput } from "@/app/phone-input";
-import { CONTACTS } from "@/lib/contacts";
 import { clientAntispamFromForm } from "@/lib/form-antispam";
 import { LEAD_POPUP_EVENT, type LeadPopupDetail } from "@/lib/lead-popup";
 import { isValidRuPhone, phoneE164 } from "@/lib/phone-mask";
 
 export function LeadPopup() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [detail, setDetail] = useState<LeadPopupDetail>({});
   const [name, setName] = useState("");
@@ -20,7 +21,6 @@ export function LeadPopup() {
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
 
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -39,7 +39,6 @@ export function LeadPopup() {
       setConsent(false);
       setError("");
       setSending(false);
-      setSent(false);
       setFormKey((key) => key + 1);
       setOpen(true);
     }
@@ -110,12 +109,13 @@ export function LeadPopup() {
       const data = (await response.json()) as { ok?: boolean; error?: string };
       if (!response.ok || !data.ok) {
         setError(data.error || "Не удалось отправить заявку.");
+        setSending(false);
         return;
       }
-      setSent(true);
+      router.push("/spasibo");
+      return;
     } catch {
       setError("Не удалось отправить заявку. Проверьте соединение и попробуйте снова.");
-    } finally {
       setSending(false);
     }
   }
@@ -158,109 +158,90 @@ export function LeadPopup() {
           </button>
         </div>
 
-        {sent ? (
-          <div>
-            <p className="font-semibold text-foreground">Заявка принята</p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Мы получили контакты. Если удобнее — напишите Евгению в Telegram.{" "}
-              {CONTACTS.hours}.
+        <form
+          key={formKey}
+          onSubmit={onSubmit}
+          className="relative flex flex-col gap-4"
+          noValidate
+        >
+          <FormHoneypot />
+          {detail.car !== undefined || detail.year !== undefined ? (
+            <>
+              <label className="block text-sm font-medium">
+                Какое авто
+                <input
+                  type="text"
+                  name="car"
+                  value={car}
+                  onChange={(event) => setCar(event.target.value)}
+                  placeholder="Например, BMW 5"
+                  className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
+                />
+              </label>
+              <label className="block text-sm font-medium">
+                Год выпуска
+                <input
+                  type="text"
+                  name="year"
+                  inputMode="numeric"
+                  value={year}
+                  onChange={(event) => setYear(event.target.value)}
+                  className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
+                />
+              </label>
+            </>
+          ) : null}
+          <label className="block text-sm font-medium">
+            Имя
+            <input
+              type="text"
+              name="name"
+              autoComplete="name"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
+            />
+          </label>
+          <label className="block text-sm font-medium">
+            Телефон
+            <PhoneInput
+              value={phone}
+              onChange={setPhone}
+              className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
+            />
+          </label>
+          <label className="flex cursor-pointer items-start gap-3 text-sm text-muted-foreground">
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(event) => setConsent(event.target.checked)}
+              className="mt-1 size-4 cursor-pointer accent-accent"
+            />
+            <span>
+              Соглашаюсь на{" "}
+              <Link
+                href="/privacy"
+                className="text-accent underline-offset-2 hover:underline"
+                onClick={(event) => event.stopPropagation()}
+              >
+                обработку персональных данных
+              </Link>
+              .
+            </span>
+          </label>
+          {error ? (
+            <p className="text-sm text-destructive" role="alert">
+              {error}
             </p>
-            <a
-              href={CONTACTS.telegramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-shimmer mt-5 inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-accent px-4 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90"
-            >
-              <TelegramIcon className="size-5" />
-              Написать Евгению в Telegram
-            </a>
-          </div>
-        ) : (
-          <form
-            key={formKey}
-            onSubmit={onSubmit}
-            className="relative flex flex-col gap-4"
-            noValidate
+          ) : null}
+          <button
+            type="submit"
+            disabled={sending}
+            className="btn-shimmer min-h-12 cursor-pointer rounded-lg bg-accent px-5 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
           >
-            <FormHoneypot />
-            {detail.car !== undefined || detail.year !== undefined ? (
-              <>
-                <label className="block text-sm font-medium">
-                  Какое авто
-                  <input
-                    type="text"
-                    name="car"
-                    value={car}
-                    onChange={(event) => setCar(event.target.value)}
-                    placeholder="Например, BMW 5"
-                    className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
-                  />
-                </label>
-                <label className="block text-sm font-medium">
-                  Год выпуска
-                  <input
-                    type="text"
-                    name="year"
-                    inputMode="numeric"
-                    value={year}
-                    onChange={(event) => setYear(event.target.value)}
-                    className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
-                  />
-                </label>
-              </>
-            ) : null}
-            <label className="block text-sm font-medium">
-              Имя
-              <input
-                type="text"
-                name="name"
-                autoComplete="name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
-              />
-            </label>
-            <label className="block text-sm font-medium">
-              Телефон
-              <PhoneInput
-                value={phone}
-                onChange={setPhone}
-                className="mt-2 min-h-12 w-full rounded-lg border border-border bg-background px-4 text-base text-foreground"
-              />
-            </label>
-            <label className="flex cursor-pointer items-start gap-3 text-sm text-muted-foreground">
-              <input
-                type="checkbox"
-                checked={consent}
-                onChange={(event) => setConsent(event.target.checked)}
-                className="mt-1 size-4 cursor-pointer accent-accent"
-              />
-              <span>
-                Соглашаюсь на{" "}
-                <Link
-                  href="/privacy"
-                  className="text-accent underline-offset-2 hover:underline"
-                  onClick={(event) => event.stopPropagation()}
-                >
-                  обработку персональных данных
-                </Link>
-                .
-              </span>
-            </label>
-            {error ? (
-              <p className="text-sm text-destructive" role="alert">
-                {error}
-              </p>
-            ) : null}
-            <button
-              type="submit"
-              disabled={sending}
-              className="btn-shimmer min-h-12 cursor-pointer rounded-lg bg-accent px-5 font-semibold text-on-accent transition-opacity duration-200 hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
-            >
-              {sending ? "Отправляем…" : "Отправить заявку"}
-            </button>
-          </form>
-        )}
+            {sending ? "Отправляем…" : "Отправить заявку"}
+          </button>
+        </form>
       </div>
     </div>
   );
