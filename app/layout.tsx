@@ -1,10 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
+import { AnalyticsGoals } from "@/app/analytics-goals";
 import { ContactWidget } from "@/app/contact-widget";
+import { GoogleTagManager } from "@/app/google-tag-manager";
 import { LeadPopup } from "@/app/lead-popup";
 import { SiteFooter } from "@/app/site-footer";
 import { SiteHeader } from "@/app/site-header";
 import { StickyInvestCta } from "@/app/sticky-invest-cta";
+import { YandexMetrika } from "@/app/yandex-metrika";
 import { BRAND_SHORT } from "@/lib/contacts";
 import {
   buildFaqJsonLd,
@@ -87,6 +90,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: "Kj44huxK3Ay2LBSfA3IYJbxq6RojAdEIUuAH2_anLrM",
+  },
   icons: {
     icon: [{ url: "/icon.png", type: "image/png" }],
     apple: [{ url: "/apple-icon.png", type: "image/png" }],
@@ -103,6 +109,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${montserrat.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-sans">
+        <GoogleTagManager />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -121,6 +128,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ContactWidget />
         <StickyInvestCta />
         <LeadPopup />
+        <YandexMetrika />
+        <AnalyticsGoals />
       </body>
     </html>
   );
