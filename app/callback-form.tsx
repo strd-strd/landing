@@ -64,6 +64,11 @@ export function CallbackForm() {
         setSending(false);
         return;
       }
+      setSending(false);
+      setError("");
+      setName("");
+      setPhone("");
+      setConsent(false);
       router.push("/spasibo");
       return;
     } catch {

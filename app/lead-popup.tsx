@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { FormHoneypot } from "@/app/form-honeypot";
 import { CloseIcon } from "@/app/icons";
@@ -12,6 +12,7 @@ import { isValidRuPhone, phoneE164 } from "@/lib/phone-mask";
 
 export function LeadPopup() {
   const router = useRouter();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [detail, setDetail] = useState<LeadPopupDetail>({});
   const [name, setName] = useState("");
@@ -26,6 +27,23 @@ export function LeadPopup() {
   const closeRef = useRef<HTMLButtonElement>(null);
   /** Сброс honeypot-таймера при каждом открытии попапа. */
   const [formKey, setFormKey] = useState(0);
+
+  function closeAndReset() {
+    setOpen(false);
+    setName("");
+    setPhone("");
+    setCar("");
+    setYear("");
+    setConsent(false);
+    setError("");
+    setSending(false);
+    setDetail({});
+  }
+
+  // Layout-mounted popup survives soft navigate — sync closed on thanks page.
+  if (pathname === "/spasibo" && open) {
+    closeAndReset();
+  }
 
   useEffect(() => {
     function onOpen(event: Event) {
@@ -112,6 +130,7 @@ export function LeadPopup() {
         setSending(false);
         return;
       }
+      closeAndReset();
       router.push("/spasibo");
       return;
     } catch {
