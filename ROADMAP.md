@@ -94,11 +94,14 @@
 
 ### Продукт / техника
 
-- [done] `POST /api/lead` + антиспам + Telegram (`TOKEN_TELEGRAM`, `LEAD_TELEGRAM_CHAT_ID`)
+- [done] `POST /api/lead` + антиспам + Telegram (`TOKEN_TELEGRAM`, `LEAD_TELEGRAM_CHAT_ID`, `ID_ADMIN`)
 - [done] Артефакты Beget: `ecosystem.config.cjs`, `deploy/nginx-invest.conf`, `scripts/deploy-on-server.sh`, скилл beget-deploy (`/var/www/investdemidov`)
+- [done] Supabase (service role): логи `InvestDemidov_logs`, заявки + deliver_status, bot users/segments/events; SQL `supabase/investdemidov.sql`; `lib/app-log` → console+DB+ID_OPS; `POST /api/bot/track` для будущих событий
+- [todo] Выполнить SQL в Supabase + прописать `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` (+ `ID_OPS`) на Beget
 - [todo] DNS A `invest.demidovpark.ru` → `82.202.129.89`
 - [todo] Первый перенос на VPS (clone → `.env.local` → build → pm2 → nginx → certbot) — команды в beget-deploy skill
 - [todo] Заполнить env на проде и прогнать тест заявки (форма + попап)
+- [idea] Telegram-бот / Mini App invest (эмитить `bot_start` / `miniapp_open` / `question` через `/api/bot/track`)
 - [idea] Куки-баннер паритет с demidovpark
 - [idea] Кейс-страницы «автомобиль инвестора» под SEO
 

@@ -15,7 +15,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - **Next.js 16** (App Router), **React 19**, **TypeScript** (`strict: true`)
 - Стили: `app/globals.css` + **Tailwind CSS 4**
 - Алиас: `@/*` → корень проекта
-- Данные: JSON на диске в `data/`, не БД (если понадобятся)
+- Данные: JSON на диске в `data/` + **Supabase** (service role) для логов, заявок и событий бота
+- SQL-схема: `supabase/investdemidov.sql` (префикс `InvestDemidov_`)
 
 Процесс: `npm run dev` (только Next). Next сам читает `.env.local`.
 
@@ -26,30 +27,28 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 | Веб UI | `app/page.tsx` | Лендинг. `"use client"` только где нужен браузер |
 | API | `app/api/` | Валидация входа, без утечки секретов в ответ |
 | Общая логика | `lib/` | Не копипастить по страницам |
-| Стор | `lib/` + `data/` | Вся fs-работа только в сторе (`process.cwd()/data`) |
+| Стор FS | `lib/` + `data/` | Вся fs-работа только в сторе (`process.cwd()/data`) |
+| Стор DB | `lib/supabase-admin.ts`, `leads-db`, `bot-events-db`, `app-log` | Только service role на сервере |
 
 # Обязательно: логирование
 
-Сейчас в проекте `console.error` / `console.log`. Не плодить `console.log` «для отладки».
+Через `lib/app-log.ts`: **консоль + Supabase (`InvestDemidov_logs`) + алерт `ID_OPS` на error/critical**. Не плодить сырой `console.log` «для отладки».
 
-1. **Сервер:** логировать ошибки и важные lifecycle-события (5xx, падение HTTP / FS). Не логировать успешный happy-path каждого запроса.
+1. **Сервер:** `logInfo` / `logWarn` / `logError` / `logCritical` (канал + сообщение + контекст). Не логировать успешный happy-path каждого запроса.
 2. **Клиент:** не логировать. Ошибки — в UI (`error` / `status`).
-3. **Никогда не логировать:** секреты из `.env.local`, полный системный промпт, полный текст переписки, сырой `request.json` с данными пользователя. Можно: путь/имя маршрута, модель (если появится), длина текста, имя исключения.
-4. Формат: префикс канала + сообщение + объект контекста.
-
-```ts
-console.error("[web] landing error", { route, status, code });
-```
-
-5. Пользователю — короткое русское сообщение без стека. Детали только в лог.
+3. **Никогда не логировать:** секреты из `.env.local`, полный системный промпт, полный текст переписки, сырой `request.json`, полный телефон/имя в контексте логов (длина телефона / `leadId` — ок; ПДн — только в `InvestDemidov_leads`).
+4. Формат: префикс канала + сообщение + объект контекста (`logError("web", "…", { … })`).
+5. Пользователю — короткое русское сообщение без стека. Детали только в лог / БД.
 6. Пустой `catch` запрещён, кроме отсутствия файла в storage (нет файла).
-7. Новый модуль с I/O (HTTP, FS) — лог ошибок в том же стиле. Не тащить pino / winston без отдельной задачи.
+7. Новый модуль с I/O (HTTP, FS, Supabase) — лог ошибок через app-log. Не тащить pino / winston без отдельной задачи.
 
 # Секреты и env
 
 Только `.env.local` (в gitignore). Опционально `.env.example` без значений.
 
-Не угадывать ключи. Ни ключа — ни в клиент, ни в git, ни в комментарии. `NEXT_PUBLIC_` для секретов запрещён.
+Имена: `SITE_URL`, `TOKEN_TELEGRAM`, `LEAD_TELEGRAM_CHAT_ID`, `ID_ADMIN` (менеджеры / заявки), `ID_OPS` (разработчик / алерты), `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`. Заявки → `LEAD` + `ID_ADMIN`, не в `ID_OPS`.
+
+Не угадывать ключи. Ни ключа — ни в клиент, ни в git, ни в комментарии. `NEXT_PUBLIC_` для секретов запрещён. Anon/publishable Supabase в клиент не тащим.
 
 # Контракты, которые нельзя молча ломать
 

@@ -72,7 +72,7 @@ export async function POST(request: Request) {
     });
 
     if (!result.ok) {
-      // Детали уже ушли в logError внутри sendInvestLeadToManager (+ алерт админу)
+      // Детали уже в logError/logCritical (+ DB + алерт ID_OPS)
       return NextResponse.json({ error: result.error }, { status: 502 });
     }
 
