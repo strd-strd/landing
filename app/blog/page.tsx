@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { BLOG_ARTICLES } from "@/lib/blog";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -12,8 +13,17 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function BlogPage() {
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Главная", path: "/" },
+    { name: "Блог", path: "/blog" },
+  ]);
+
   return (
     <main id="main" className="border-t border-border">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <section className="px-4 pb-20 pt-[calc(var(--header-height)+2.5rem)] sm:px-6 sm:pb-24 sm:pt-[calc(var(--header-height)+3.5rem)]">
         <div className="mx-auto w-full max-w-6xl">
           <p className="text-sm uppercase tracking-[0.18em] text-accent">Блог</p>

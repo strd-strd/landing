@@ -33,7 +33,7 @@
 - [done] Лендинг: оффер, классы дохода, калькуляторы (пул / своё авто), FAQ, доверие
 - [done] Убраны шаблонные отзывы «Андрей / Марина» — секция на MyReviews арендаторов парка
 - [done] `/privacy` + `/consent` + cookie-баннер (паритет demidovpark); чекбоксы с ссылками на оба (форма + попап)
-- [done] Карта офиса, JSON-LD, `sitemap` / `robots`
+- [done] Карта офиса, JSON-LD (Organization/LocalBusiness, WebSite, FAQPage на главной, BlogPosting + BreadcrumbList), `sitemap` / `robots`, `/llms.txt`
 - [done] Sticky CTA с гистерезисом (как demidovpark)
 - [done] Попап заявки с контекстом (сумма / марка·год из калькулятора); закрытие попапа стабильно
 - [done] `/spasibo` + редирект после успешной заявки (форма и попап)
@@ -98,7 +98,7 @@
 
 1. [todo] Подтвердить на проде cookie-баннер + `/privacy` / `/consent` (если свежий деплой ещё не выкатывали)
 2. [todo] В кабинете Метрики: создать JS-цель `lead_thanks` + привязать к Директу; проверить hit на `/spasibo`
-3. [todo] Подтвердить GSC + Яндекс.Вебмастер; отправить sitemap
+3. [todo] Подтвердить GSC + Яндекс.Вебмастер; отправить sitemap (`https://invest.demidovpark.ru/sitemap.xml`); проверить `/llms.txt` и разметку в Rich Results / валидаторе Яндекса
 4. [todo] Кто отвечает на лиды / процесс и SLA после заявки
 
 ### Конверсия

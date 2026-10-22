@@ -7,11 +7,12 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: ["/", "/llms.txt"],
         disallow: ["/api/", "/spasibo"],
       },
     ],
     sitemap: `${base}/sitemap.xml`,
+    /** Yandex Host: предпочитаемый хост без схемы. */
     host: base.replace(/^https?:\/\//, ""),
   };
 }

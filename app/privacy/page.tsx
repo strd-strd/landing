@@ -3,6 +3,7 @@ import Link from "next/link";
 import { GTM_ID } from "@/app/google-tag-manager";
 import { BRAND_SHORT, CONTACTS } from "@/lib/contacts";
 import { YANDEX_METRIKA_ID } from "@/lib/analytics";
+import { buildBreadcrumbJsonLd } from "@/lib/json-ld";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -12,8 +13,17 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function PrivacyPage() {
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Главная", path: "/" },
+    { name: "Политика конфиденциальности", path: "/privacy" },
+  ]);
+
   return (
     <main id="main" className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <p className="text-sm font-medium uppercase tracking-[0.18em] text-accent">
         Правовая информация
       </p>

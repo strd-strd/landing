@@ -11,7 +11,6 @@ import { StickyInvestCta } from "@/app/sticky-invest-cta";
 import { YandexMetrika } from "@/app/yandex-metrika";
 import { BRAND_SHORT } from "@/lib/contacts";
 import {
-  buildFaqJsonLd,
   buildOrganizationJsonLd,
   buildWebSiteJsonLd,
 } from "@/lib/json-ld";
@@ -102,7 +101,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
-  const jsonLd = [buildOrganizationJsonLd(), buildWebSiteJsonLd(), buildFaqJsonLd()];
+  const jsonLd = [buildOrganizationJsonLd(), buildWebSiteJsonLd()];
 
   return (
     <html

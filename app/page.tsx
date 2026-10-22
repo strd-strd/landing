@@ -21,6 +21,7 @@ import {
   STEPS,
   TRUST_STRIP,
 } from "@/lib/content";
+import { buildFaqJsonLd } from "@/lib/json-ld";
 import { buildPageMetadata, HOME_DESCRIPTION, HOME_TITLE } from "@/lib/seo";
 
 const RENTAL_SITE_HOST = "demidovpark.ru";
@@ -32,8 +33,14 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function Home() {
+  const faqJsonLd = buildFaqJsonLd();
+
   return (
     <main id="main">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Hero />
       <Income />
       <OwnCarCalculator />
