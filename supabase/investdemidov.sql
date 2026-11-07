@@ -140,3 +140,5 @@ grant all on table "InvestDemidov_bot_users" to service_role;
 grant all on table "InvestDemidov_bot_user_segments" to service_role;
 grant all on table "InvestDemidov_bot_events" to service_role;
 grant all on table "InvestDemidov_leads" to service_role;
+
+-- ИИ-агент (промпт / история чатов): см. supabase/investdemidov-agent.sql

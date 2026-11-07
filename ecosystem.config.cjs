@@ -20,6 +20,19 @@ module.exports = {
       interpreter: "node",
       env: {
         NODE_ENV: "production",
+        NODE_OPTIONS: "--dns-result-order=ipv4first",
+      },
+    },
+    {
+      // Telegram long polling (RU): вебхук часто Connection timed out.
+      name: "investdemidov-tg-poll",
+      cwd: __dirname,
+      script: "node_modules/tsx/dist/cli.mjs",
+      args: "bot/polling.ts",
+      interpreter: "node",
+      env: {
+        NODE_ENV: "production",
+        NODE_OPTIONS: "--dns-result-order=ipv4first",
       },
     },
   ],

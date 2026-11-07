@@ -5,6 +5,7 @@ import { ContactWidget } from "@/app/contact-widget";
 import { CookieBanner } from "@/app/cookie-banner";
 import { GoogleTagManager } from "@/app/google-tag-manager";
 import { LeadPopup } from "@/app/lead-popup";
+import { SiteChrome } from "@/app/site-chrome";
 import { SiteFooter } from "@/app/site-footer";
 import { SiteHeader } from "@/app/site-header";
 import { StickyInvestCta } from "@/app/sticky-invest-cta";
@@ -120,17 +121,21 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           К основному контенту
         </a>
-        <SiteHeader />
+        <SiteChrome>
+          <SiteHeader />
+        </SiteChrome>
         <div id="top" className="flex flex-1 flex-col">
           {children}
         </div>
-        <SiteFooter />
-        <ContactWidget />
-        <StickyInvestCta />
-        <LeadPopup />
-        <CookieBanner />
-        <YandexMetrika />
-        <AnalyticsGoals />
+        <SiteChrome>
+          <SiteFooter />
+          <ContactWidget />
+          <StickyInvestCta />
+          <LeadPopup />
+          <CookieBanner />
+          <YandexMetrika />
+          <AnalyticsGoals />
+        </SiteChrome>
       </body>
     </html>
   );

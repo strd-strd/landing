@@ -37,9 +37,18 @@ function getTelegramProxyAgent(): ProxyAgent | null {
   return proxyAgent;
 }
 
+type GrammyFetchInit = RequestInit & {
+  /** node-fetch / grammY baseFetchConfig — undici не понимает */
+  agent?: unknown;
+  compress?: unknown;
+};
+
 /**
  * fetch к Telegram API через HTTP-прокси (FastFox RU → NL tinyproxy).
  * Без env — обычный fetch (локальная разработка).
+ *
+ * grammY в Node передаёт: agent, compress, duplex, signal —
+ * для undici выбрасываем agent/compress/signal.
  */
 export function telegramFetch(
   input: RequestInfo | URL,
@@ -50,8 +59,12 @@ export function telegramFetch(
     return fetch(input, init);
   }
 
+  const raw = (init ?? {}) as GrammyFetchInit;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- strip grammY Node fields
+  const { agent, compress, signal, ...rest } = raw;
+
   return undiciFetch(input as string | URL, {
-    ...(init as UndiciRequestInit),
+    ...(rest as UndiciRequestInit),
     dispatcher: proxy,
   }) as unknown as Promise<Response>;
 }

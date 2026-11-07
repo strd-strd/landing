@@ -13,15 +13,21 @@ alter table if exists "InvestDemidov_bot_users" enable row level security;
 alter table if exists "InvestDemidov_bot_user_segments" enable row level security;
 alter table if exists "InvestDemidov_bot_events" enable row level security;
 alter table if exists "InvestDemidov_leads" enable row level security;
+alter table if exists "InvestDemidov_agent_settings" enable row level security;
+alter table if exists "InvestDemidov_chat_messages" enable row level security;
 
 revoke all on table "InvestDemidov_logs" from anon, authenticated;
 revoke all on table "InvestDemidov_bot_users" from anon, authenticated;
 revoke all on table "InvestDemidov_bot_user_segments" from anon, authenticated;
 revoke all on table "InvestDemidov_bot_events" from anon, authenticated;
 revoke all on table "InvestDemidov_leads" from anon, authenticated;
+revoke all on table "InvestDemidov_agent_settings" from anon, authenticated;
+revoke all on table "InvestDemidov_chat_messages" from anon, authenticated;
 
 grant all on table "InvestDemidov_logs" to service_role;
 grant all on table "InvestDemidov_bot_users" to service_role;
 grant all on table "InvestDemidov_bot_user_segments" to service_role;
 grant all on table "InvestDemidov_bot_events" to service_role;
 grant all on table "InvestDemidov_leads" to service_role;
+grant all on table "InvestDemidov_agent_settings" to service_role;
+grant all on table "InvestDemidov_chat_messages" to service_role;
