@@ -97,6 +97,7 @@ export async function addUserSegment(
 
   const now = new Date().toISOString();
 
+  // Пользователь должен существовать (FK). Тихий upsert профиля.
   await db.from("InvestDemidov_bot_users").upsert(
     {
       telegram_id: telegramId,
@@ -106,44 +107,19 @@ export async function addUserSegment(
     { onConflict: "telegram_id" },
   );
 
-  const { data: existing, error: selectError } = await db
-    .from("InvestDemidov_bot_user_segments")
-    .select("telegram_id")
-    .eq("telegram_id", telegramId)
-    .eq("segment", segment)
-    .maybeSingle();
-
-  if (selectError) {
-    logError("bot", "addUserSegment select failed", {
-      message: selectError.message,
+  // Upsert по PK (telegram_id, segment): без first_at в payload —
+  // INSERT берёт default now(), UPDATE трогает только last_at.
+  // Иначе гонка select→insert даёт duplicate key + ложный ops-алерт.
+  const { error } = await db.from("InvestDemidov_bot_user_segments").upsert(
+    {
+      telegram_id: telegramId,
       segment,
-    });
-    return;
-  }
-
-  if (existing) {
-    const { error } = await db
-      .from("InvestDemidov_bot_user_segments")
-      .update({ last_at: now })
-      .eq("telegram_id", telegramId)
-      .eq("segment", segment);
-    if (error) {
-      logError("bot", "addUserSegment update failed", {
-        message: error.message,
-        segment,
-      });
-    }
-    return;
-  }
-
-  const { error } = await db.from("InvestDemidov_bot_user_segments").insert({
-    telegram_id: telegramId,
-    segment,
-    first_at: now,
-    last_at: now,
-  });
+      last_at: now,
+    },
+    { onConflict: "telegram_id,segment" },
+  );
   if (error) {
-    logError("bot", "addUserSegment insert failed", {
+    logError("bot", "addUserSegment upsert failed", {
       message: error.message,
       segment,
     });
