@@ -168,6 +168,9 @@ export function createTelegramBot(): Bot {
     void recordBotEvent({
       eventType: "question",
       telegramId,
+      username: from.username,
+      firstName: from.first_name,
+      lastName: from.last_name,
       meta: { textLen: text.length, channel: "ai" },
       segment: "ask_manager",
     });

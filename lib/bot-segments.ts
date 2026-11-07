@@ -33,14 +33,16 @@ export type AudienceListOption = {
 };
 
 export function formatBotUserLabel(user: BotUserPreview): string {
+  const handle = user.username?.trim()
+    ? `@${user.username.trim()}`
+    : "";
   const name = [user.first_name, user.last_name]
     .filter((part): part is string => Boolean(part && part.trim()))
     .join(" ")
     .trim();
-  const handle = user.username ? `@${user.username}` : "";
-  if (name && handle) return `${name} · ${handle}`;
-  if (name) return name;
+  if (handle && name) return `${handle} · ${name}`;
   if (handle) return handle;
+  if (name) return name;
   return "без имени";
 }
 

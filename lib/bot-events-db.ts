@@ -29,6 +29,15 @@ export function isBotEventType(value: string): value is BotEventType {
   return (BOT_EVENT_TYPES as readonly string[]).includes(value);
 }
 
+/** undefined — не трогать колонку; пустая строка → null. */
+function profileField(
+  value: string | undefined,
+): string | null | undefined {
+  if (value === undefined) return undefined;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
 export async function upsertBotUser(input: {
   telegramId: string;
   username?: string;
@@ -44,16 +53,22 @@ export async function upsertBotUser(input: {
   }
 
   const now = new Date().toISOString();
+  const username = profileField(input.username);
+  const firstName = profileField(input.firstName);
+  const lastName = profileField(input.lastName);
+
   try {
     const { error } = await db.from("InvestDemidov_bot_users").upsert(
       {
         telegram_id: input.telegramId,
-        username: input.username ?? null,
-        first_name: input.firstName ?? null,
-        last_name: input.lastName ?? null,
         last_seen_at: now,
         status: "active",
         ...(input.consented ? { consented_at: now } : {}),
+        // Не писать null, если поле не передали — иначе event без профиля
+        // затирает имя, сохранённое на /start.
+        ...(username !== undefined ? { username } : {}),
+        ...(firstName !== undefined ? { first_name: firstName } : {}),
+        ...(lastName !== undefined ? { last_name: lastName } : {}),
       },
       { onConflict: "telegram_id" },
     );
