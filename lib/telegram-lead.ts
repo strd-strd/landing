@@ -16,6 +16,7 @@ import {
   getOpsUserIds,
   getToken,
 } from "@/lib/telegram-env";
+import { telegramFetch } from "@/lib/telegram-fetch";
 
 export {
   getAdminUserIds,
@@ -82,10 +83,13 @@ async function telegramApi(
     return { ok: false, description: "нет TOKEN_TELEGRAM" };
   }
   try {
-    const res = await fetch(`https://api.telegram.org/bot${token}/${method}`, {
-      method: "POST",
-      body,
-    });
+    const res = await telegramFetch(
+      `https://api.telegram.org/bot${token}/${method}`,
+      {
+        method: "POST",
+        body,
+      },
+    );
     const data = (await res.json()) as { ok?: boolean; description?: string };
     if (!res.ok || !data.ok) {
       return { ok: false, description: data.description || `HTTP ${res.status}` };

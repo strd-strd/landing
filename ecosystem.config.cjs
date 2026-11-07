@@ -1,10 +1,10 @@
 /**
- * PM2 на Beget рядом с:
- *   proect-1 :3000 (/var/www/html)
- *   ollmet :3001 (/var/www/ollmet)
- *   technodevil :3002 (/var/www/technodevil)
- *   strahovaniesmirnov :3003 (/var/www/strahovaniesmirnov)
- *   demidovpark :3004 (/var/www/demidovpark)
+ * PM2 на FastFox RU (5.44.41.186) рядом с:
+ *   proect-1 :3000 (/var/www/lishkov)
+ *   psyinst :3001 (/var/www/psyinst)
+ *   strahovaniesmirnov :3003
+ *   demidovpark :3004
+ *   sglonass :3006
  * Этот проект — порт 3005, папка /var/www/investdemidov (invest.demidovpark.ru).
  *
  *   sudo -u nodejs -H bash -c 'cd /var/www/investdemidov && pm2 start ecosystem.config.cjs'

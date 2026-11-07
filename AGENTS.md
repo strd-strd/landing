@@ -46,7 +46,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Только `.env.local` (в gitignore). Опционально `.env.example` без значений.
 
-Имена: `SITE_URL`, `TOKEN_TELEGRAM`, `LEAD_TELEGRAM_CHAT_ID`, `ID_ADMIN` (менеджеры / заявки), `ID_OPS` (разработчик / алерты), `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`. Заявки → `LEAD` + `ID_ADMIN`, не в `ID_OPS`.
+Имена: `SITE_URL`, `TOKEN_TELEGRAM`, `LEAD_TELEGRAM_CHAT_ID`, `ID_ADMIN` (менеджеры / заявки), `ID_OPS` (разработчик / алерты), `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, на FastFox RU ещё `TELEGRAM_PROXY_URL` / `PROXY_URL`. Заявки → `LEAD` + `ID_ADMIN`, не в `ID_OPS`.
 
 Не угадывать ключи. Ни ключа — ни в клиент, ни в git, ни в комментарии. `NEXT_PUBLIC_` для секретов запрещён. Anon/publishable Supabase в клиент не тащим.
 
@@ -70,6 +70,6 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # Скилы
 
-Локальные скилы в `.agents/skills/` (как в Proekt1): `agent-browser`, `beget-deploy`, `finishing-a-development-branch`, `git-workflow-and-versioning`, `resolving-merge-conflicts`, `ui-ux-pro-max`, `vercel-composition-patterns`, `vercel-react-best-practices`, `web-design-guidelines`. Список и хеши — `skills-lock.json`.
+Локальные скилы в `.agents/skills/` (как в Proekt1): `agent-browser`, `fastfox-deploy`, `beget-deploy` (deprecated → FastFox), `finishing-a-development-branch`, `git-workflow-and-versioning`, `resolving-merge-conflicts`, `ui-ux-pro-max`, `vercel-composition-patterns`, `vercel-react-best-practices`, `web-design-guidelines`. Список и хеши — `skills-lock.json`.
 
-Скил `beget-deploy` — деплой **этого** репо на Beget: `/var/www/investdemidov`, порт **3005**, PM2 `investdemidov`, домен `invest.demidovpark.ru`. Не путать с Proekt1 (`:3000`) и demidovpark (`:3004`).
+Скил `fastfox-deploy` — деплой **этого** репо на FastFox RU `5.44.41.186`: `/var/www/investdemidov`, порт **3005**, PM2 `investdemidov`, домен `invest.demidovpark.ru`. Не путать с lishkov (`:3000`) и demidovpark (`:3004`). Beget `82.202.129.89` — superseded.

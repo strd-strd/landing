@@ -5,6 +5,7 @@
 
 import type { AppLogRow, LogLevel } from "@/lib/app-log-types";
 import { getOpsUserIds, getToken } from "@/lib/telegram-env";
+import { telegramFetch } from "@/lib/telegram-fetch";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 export type { AppLogRow, LogLevel } from "@/lib/app-log-types";
@@ -111,15 +112,18 @@ async function notifyOpsTelegram(
   let ok = false;
   for (const chatId of ops) {
     try {
-      const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text,
-          disable_web_page_preview: true,
-        }),
-      });
+      const res = await telegramFetch(
+        `https://api.telegram.org/bot${token}/sendMessage`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text,
+            disable_web_page_preview: true,
+          }),
+        },
+      );
       const data = (await res.json()) as { ok?: boolean };
       if (data.ok) ok = true;
     } catch (error) {

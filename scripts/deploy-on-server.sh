@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Вставка на VPS от root. Обновляет /var/www/investdemidov с GitHub и перезапускает PM2.
+# Вставка на FastFox RU (5.44.41.186) от root.
+# Обновляет /var/www/investdemidov с GitHub и перезапускает PM2 investdemidov :3005.
 set -euo pipefail
 
 APP=/var/www/investdemidov
@@ -19,7 +20,7 @@ git log -1 --oneline
 chown -R nodejs:nodejs "$APP"
 
 echo "== build =="
-sudo -u nodejs -H bash -c "cd $APP && rm -rf .next && npm ci && npm run build"
+sudo -u nodejs -H bash -c "cd $APP && rm -rf .next && npm ci && NODE_OPTIONS=--max-old-space-size=1536 npm run build"
 echo "build exit: $?"
 
 echo "== pm2 =="
