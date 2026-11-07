@@ -1,9 +1,11 @@
 /**
- * Минимальный Grammy-бот invest: /start → запись в DB + сегмент start,
- * отписка от рассылки, вопрос менеджеру.
+ * Grammy-бот invest: /start → welcome + URL к Евгению,
+ * обычный текст → тот же ИИ-консультант, что виджет сайта.
  */
 
 import { Bot, InlineKeyboard, type Context } from "grammy";
+import { askInvestAssistant, formatAgentError } from "@/lib/agent";
+import { allowChatByKey } from "@/lib/agent-limits";
 import { logError } from "@/lib/app-log";
 import { setBroadcastOptOut } from "@/lib/bot-audience";
 import { recordBotEvent, upsertBotUser } from "@/lib/bot-events-db";
@@ -22,16 +24,21 @@ function welcomeText(firstName: string): string {
     `Сайт: ${getSiteUrl()}`,
     `Телефон: ${CONTACTS.phoneDisplay}`,
     "",
-    "Напишите вопрос или нажмите кнопку — менеджер ответит здесь.",
+    "Напишите вопрос — ответит ИИ-консультант (как на сайте).",
+    "Чтобы сразу человеку — кнопка «Написать Евгению».",
   ].join("\n");
 }
 
+/** Inline URL: reply-клавиатура Telegram не умеет открывать ссылки. */
 function mainKeyboard() {
   return new InlineKeyboard()
-    .url("Сайт Invest", getSiteUrl())
+    .url("Написать Евгению", CONTACTS.telegramUrl)
     .row()
-    .text("Задать вопрос", "ask_manager")
-    .url("Telegram менеджера", CONTACTS.telegramUrl);
+    .url("Сайт Invest", getSiteUrl());
+}
+
+function evgeniyKeyboard() {
+  return new InlineKeyboard().url("Написать Евгению", CONTACTS.telegramUrl);
 }
 
 async function sendWelcome(ctx: Context, firstName: string) {
@@ -39,6 +46,10 @@ async function sendWelcome(ctx: Context, firstName: string) {
     link_preview_options: { is_disabled: true },
     reply_markup: mainKeyboard(),
   });
+}
+
+function botChatId(telegramId: string | number): string {
+  return `tg:${telegramId}`;
 }
 
 export function createTelegramBot(): Bot {
@@ -89,24 +100,26 @@ export function createTelegramBot(): Bot {
     });
   });
 
-  bot.callbackQuery("ask_manager", async (ctx) => {
+  bot.command("manager", async (ctx) => {
     const from = ctx.from;
-    if (!from) {
-      await ctx.answerCallbackQuery();
-      return;
-    }
-    await ctx.answerCallbackQuery({ text: "Напишите вопрос" });
     await ctx.reply(
-      "Напишите ваш вопрос следующим сообщением — менеджер увидит его и ответит здесь.",
-      { link_preview_options: { is_disabled: true } },
+      [
+        "Напишите Евгению в Telegram — менеджер ответит лично:",
+        CONTACTS.telegramUrl,
+      ].join("\n"),
+      {
+        link_preview_options: { is_disabled: true },
+        reply_markup: evgeniyKeyboard(),
+      },
     );
+    if (!from) return;
     void recordBotEvent({
-      eventType: "question",
+      eventType: "callback_open",
       telegramId: String(from.id),
       username: from.username,
       firstName: from.first_name,
       lastName: from.last_name,
-      segment: "ask_manager",
+      meta: { action: "manager_link" },
     });
   });
 
@@ -141,8 +154,11 @@ export function createTelegramBot(): Bot {
     const text = ctx.message.text?.trim() ?? "";
     if (!text || text.startsWith("/")) return;
 
+    const telegramId = String(from.id);
+    const chatKey = botChatId(telegramId);
+
     void upsertBotUser({
-      telegramId: String(from.id),
+      telegramId,
       username: from.username,
       firstName: from.first_name,
       lastName: from.last_name,
@@ -151,18 +167,36 @@ export function createTelegramBot(): Bot {
 
     void recordBotEvent({
       eventType: "question",
-      telegramId: String(from.id),
-      meta: { textLen: text.length },
+      telegramId,
+      meta: { textLen: text.length, channel: "ai" },
       segment: "ask_manager",
     });
 
-    await ctx.reply(
-      [
-        "Сообщение принято. Менеджер ответит здесь в чате.",
-        `Или позвоните: ${CONTACTS.phoneDisplay}`,
-      ].join("\n"),
-      { link_preview_options: { is_disabled: true } },
-    );
+    if (!allowChatByKey(`tg:${telegramId}`)) {
+      await ctx.reply("Слишком много сообщений. Подождите минуту.", {
+        link_preview_options: { is_disabled: true },
+        reply_markup: evgeniyKeyboard(),
+      });
+      return;
+    }
+
+    try {
+      await ctx.replyWithChatAction("typing");
+      const { reply } = await askInvestAssistant(chatKey, text);
+      await ctx.reply(reply, {
+        link_preview_options: { is_disabled: true },
+        reply_markup: evgeniyKeyboard(),
+      });
+    } catch (error) {
+      logError("bot", "chat agent failed", {
+        name: error instanceof Error ? error.name : undefined,
+        textLen: text.length,
+      });
+      await ctx.reply(formatAgentError(error), {
+        link_preview_options: { is_disabled: true },
+        reply_markup: evgeniyKeyboard(),
+      });
+    }
   });
 
   return bot;

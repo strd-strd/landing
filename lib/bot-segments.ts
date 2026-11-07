@@ -54,8 +54,8 @@ const SEGMENT_META: Record<BotSegment, { label: string; hint: string }> = {
     hint: "Заходили в мини-приложение",
   },
   ask_manager: {
-    label: "Писали менеджеру",
-    hint: "Вопрос менеджеру из бота",
+    label: "Диалог в боте",
+    hint: "Писали ИИ-консультанту в Telegram-боте",
   },
   lead: {
     label: "Оставили заявку",

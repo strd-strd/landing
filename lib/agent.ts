@@ -94,7 +94,15 @@ function buildInvestContext(): string {
   ].join("\n");
 }
 
-export async function replyWithAgent(chatId: string, userText: string) {
+/**
+ * Общий ИИ-консультант Invest: тот же system prompt / model / memory
+ * из InvestDemidov_agent_settings (fallback data/agent.json).
+ * Используется виджетом `/api/chat` и Telegram-ботом.
+ */
+export async function askInvestAssistant(
+  chatId: string,
+  userText: string,
+): Promise<{ reply: string; model: string }> {
   const settings = await loadAgentSettings();
   const memoryLimit = settings.memoryLimit;
   const history = await loadChatHistory(chatId);
@@ -122,7 +130,7 @@ export async function replyWithAgent(chatId: string, userText: string) {
       usedModel = result.model;
       if (!reply) throw new Error("empty_yandex_reply");
     } catch (error) {
-      logError("web", "yandex unavailable, fallback to o4-mini", {
+      logError("agent", "yandex unavailable, fallback to o4-mini", {
         model: settings.model,
         status: error instanceof APIError ? error.status : undefined,
         name: error instanceof Error ? error.name : undefined,
@@ -161,12 +169,17 @@ export async function replyWithAgent(chatId: string, userText: string) {
   try {
     await saveChatHistory(chatId, nextHistory);
   } catch (error) {
-    logError("web", "chat history persist error", {
+    logError("agent", "chat history persist error", {
       name: error instanceof Error ? error.name : undefined,
     });
   }
 
   return { reply, model: usedModel };
+}
+
+/** @deprecated используйте askInvestAssistant */
+export async function replyWithAgent(chatId: string, userText: string) {
+  return askInvestAssistant(chatId, userText);
 }
 
 export function formatAgentError(error: unknown): string {

@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { formatAgentError, replyWithAgent, resetAgentChat } from "@/lib/agent";
+import {
+  askInvestAssistant,
+  formatAgentError,
+  resetAgentChat,
+} from "@/lib/agent";
 import { loadAgentSettings, loadChatHistory } from "@/lib/agent-config";
 import { allowChatByKey } from "@/lib/agent-limits";
 import { logError, logWarn } from "@/lib/app-log";
@@ -51,7 +55,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const result = await replyWithAgent(chatId, text);
+    const result = await askInvestAssistant(chatId, text);
     return NextResponse.json(result);
   } catch (error) {
     logError("web", "chat agent failed", {
