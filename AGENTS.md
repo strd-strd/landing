@@ -46,7 +46,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Только `.env.local` (в gitignore). Опционально `.env.example` без значений.
 
-Имена: `SITE_URL`, `TOKEN_TELEGRAM`, `LEAD_TELEGRAM_CHAT_ID`, `ID_ADMIN` (менеджеры / заявки), `ID_OPS` (разработчик / алерты), `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, на FastFox RU ещё `TELEGRAM_PROXY_URL` / `PROXY_URL`. Заявки → `LEAD` + `ID_ADMIN`, не в `ID_OPS`.
+Имена: `SITE_URL`, `TOKEN_TELEGRAM`, `LEAD_TELEGRAM_CHAT_ID`, `ID_ADMIN` (менеджеры / заявки), `ID_OPS` (разработчик / алерты), `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, на FastFox RU ещё `TELEGRAM_PROXY_URL` / `PROXY_URL` (и опц. `OPENAI_PROXY_URL` для GPT). LLM: Yandex напрямую, OpenAI через NL-прокси, auto-failover. Заявки → `LEAD` + `ID_ADMIN`, не в `ID_OPS`.
 
 Не угадывать ключи. Ни ключа — ни в клиент, ни в git, ни в комментарии. `NEXT_PUBLIC_` для секретов запрещён. Anon/publishable Supabase в клиент не тащим.
 

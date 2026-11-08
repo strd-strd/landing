@@ -97,6 +97,11 @@ export function AdminAgentForm({
         <label htmlFor="agent-model" className="text-sm font-medium">
           Модель
         </label>
+        <p className="text-sm text-muted-foreground">
+          На RU основная — Yandex. Если модель недоступна, автоматически
+          включается запасная: Yandex ↔ GPT mini (gpt-4.1-mini через NL-прокси).
+          Нужны ключи YANDEX_API_KEY + YANDEX_ID и API_GPT на сервере.
+        </p>
         <select
           id="agent-model"
           value={model}
@@ -110,7 +115,7 @@ export function AdminAgentForm({
               </option>
             ))}
           </optgroup>
-          <optgroup label="OpenAI (запасной)">
+          <optgroup label="ChatGPT (OpenAI)">
             {OPENAI_MODELS.map((id) => (
               <option key={id} value={id}>
                 {MODEL_LABELS[id]}

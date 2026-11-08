@@ -24,8 +24,14 @@ export const MODELS = [...YANDEX_MODELS, ...OPENAI_MODELS] as const;
 
 export type ModelId = (typeof MODELS)[number];
 export type YandexModelId = (typeof YANDEX_MODELS)[number];
+export type OpenAIModelId = (typeof OPENAI_MODELS)[number];
 
+/** На RU VPS OpenAI без прокси часто режет по гео — основная модель Yandex. */
 export const DEFAULT_MODEL: ModelId = "yandexgpt/latest";
+/** Если недоступен Yandex — GPT mini (через NL-прокси с RU). */
+export const FALLBACK_OPENAI_MODEL: OpenAIModelId = "gpt-4.1-mini";
+/** Если недоступен ChatGPT — YandexGPT. */
+export const FALLBACK_YANDEX_MODEL: YandexModelId = "yandexgpt/latest";
 
 export const MODEL_LABELS: Record<ModelId, string> = {
   "yandexgpt/latest": "YandexGPT Pro 5",
@@ -36,12 +42,12 @@ export const MODEL_LABELS: Record<ModelId, string> = {
   "gpt-oss-120b": "GPT-OSS 120B",
   "gpt-oss-20b": "GPT-OSS 20B",
   "gemma-3-27b-it": "Gemma 3 27B",
-  "gpt-4.1-mini": "gpt-4.1-mini",
-  "gpt-4.1": "gpt-4.1",
-  "gpt-4o-mini": "gpt-4o-mini",
-  "gpt-4o": "gpt-4o",
-  "gpt-4.1-nano": "gpt-4.1-nano",
-  "o4-mini": "o4-mini",
+  "gpt-4.1-mini": "ChatGPT · gpt-4.1-mini",
+  "gpt-4.1": "ChatGPT · gpt-4.1",
+  "gpt-4o-mini": "ChatGPT · gpt-4o-mini",
+  "gpt-4o": "ChatGPT · gpt-4o",
+  "gpt-4.1-nano": "ChatGPT · gpt-4.1-nano",
+  "o4-mini": "ChatGPT · o4-mini",
 };
 
 export function isKnownModel(model: string): model is ModelId {

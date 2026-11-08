@@ -6,13 +6,21 @@ import {
   saveChatHistory,
   type ChatMessage,
 } from "@/lib/agent-config";
-import { logError } from "@/lib/app-log";
+import { logCritical, logError } from "@/lib/app-log";
 import { CONTACTS } from "@/lib/contacts";
 import { readEnv } from "@/lib/load-env";
-import { isYandexModel } from "@/lib/models";
+import {
+  FALLBACK_OPENAI_MODEL,
+  FALLBACK_YANDEX_MODEL,
+  isYandexModel,
+} from "@/lib/models";
+import {
+  getOpenAIProxyAgent,
+  openaiProxyFetch,
+  resolveOpenAIProxyUrl,
+} from "@/lib/telegram-fetch";
 
 const YANDEX_BASE_URL = "https://ai.api.cloud.yandex.net/v1";
-const FALLBACK_OPENAI_MODEL = "o4-mini";
 const MAX_OUTPUT_CHARS = 3500;
 
 type AgentMessage =
@@ -24,12 +32,21 @@ type CompletionResult = {
   model: string;
 };
 
+/** OpenAI с RU часто unsupported_country — ходим через NL-прокси, если задан. */
 function getOpenAIClient() {
   const apiKey = readEnv("API_GPT");
   if (!apiKey) {
     throw new Error("Не задан API_GPT в .env.local");
   }
-  return new OpenAI({ apiKey });
+
+  const useProxy = Boolean(
+    resolveOpenAIProxyUrl() && getOpenAIProxyAgent(),
+  );
+
+  return new OpenAI({
+    apiKey,
+    ...(useProxy ? { fetch: openaiProxyFetch as typeof fetch } : {}),
+  });
 }
 
 function getYandexClient() {
@@ -80,6 +97,84 @@ async function completeWithModel(
   };
 }
 
+/**
+ * Основная модель из настроек.
+ * Yandex недоступен → gpt-4.1-mini (через NL-прокси с RU);
+ * OpenAI недоступен → yandexgpt/latest.
+ */
+async function completeWithFailover(
+  preferredModel: string,
+  messages: AgentMessage[],
+  chatId: string,
+): Promise<CompletionResult> {
+  const primary = resolveModel(preferredModel);
+  try {
+    const result = await completeWithModel(
+      primary.client,
+      primary.model,
+      messages,
+    );
+    if (!result.text) {
+      throw new Error("empty_primary_reply");
+    }
+    return result;
+  } catch (primaryError) {
+    const fallbackId = isYandexModel(preferredModel)
+      ? FALLBACK_OPENAI_MODEL
+      : FALLBACK_YANDEX_MODEL;
+
+    logError("agent", "Модель недоступна, переключение на запасную", {
+      chatId,
+      from: preferredModel,
+      to: fallbackId,
+      status:
+        primaryError instanceof APIError ? primaryError.status ?? null : null,
+      code:
+        primaryError instanceof APIError
+          ? primaryError.code != null
+            ? String(primaryError.code)
+            : null
+          : null,
+      name: primaryError instanceof Error ? primaryError.name : null,
+    });
+
+    try {
+      const fallback = resolveModel(fallbackId);
+      const result = await completeWithModel(
+        fallback.client,
+        fallback.model,
+        messages,
+      );
+      if (!result.text) {
+        throw new Error("empty_fallback_reply");
+      }
+      return result;
+    } catch (fallbackError) {
+      logCritical(
+        "agent",
+        "Не удалось ответить ни основной, ни запасной моделью",
+        {
+          chatId,
+          from: preferredModel,
+          to: fallbackId,
+          name: fallbackError instanceof Error ? fallbackError.name : null,
+          status:
+            fallbackError instanceof APIError
+              ? fallbackError.status ?? null
+              : null,
+          code:
+            fallbackError instanceof APIError
+              ? fallbackError.code != null
+                ? String(fallbackError.code)
+                : null
+              : null,
+        },
+      );
+      throw fallbackError;
+    }
+  }
+}
+
 function buildInvestContext(): string {
   return [
     "Контекст Invest Demidov (не выдумывай иное):",
@@ -119,37 +214,9 @@ export async function askInvestAssistant(
     ...promptHistory,
   ];
 
-  let reply = "";
-  let usedModel = settings.model;
-
-  if (isYandexModel(settings.model)) {
-    try {
-      const { client, model } = resolveModel(settings.model);
-      const result = await completeWithModel(client, model, messages);
-      reply = result.text;
-      usedModel = result.model;
-      if (!reply) throw new Error("empty_yandex_reply");
-    } catch (error) {
-      logError("agent", "yandex unavailable, fallback to o4-mini", {
-        model: settings.model,
-        status: error instanceof APIError ? error.status : undefined,
-        name: error instanceof Error ? error.name : undefined,
-      });
-      const client = getOpenAIClient();
-      const result = await completeWithModel(
-        client,
-        FALLBACK_OPENAI_MODEL,
-        messages,
-      );
-      reply = result.text;
-      usedModel = result.model;
-    }
-  } else {
-    const { client, model } = resolveModel(settings.model);
-    const result = await completeWithModel(client, model, messages);
-    reply = result.text;
-    usedModel = result.model;
-  }
+  const result = await completeWithFailover(settings.model, messages, chatId);
+  let reply = result.text;
+  const usedModel = result.model;
 
   if (!reply) {
     reply = "Не получилось сформировать ответ.";
@@ -185,6 +252,9 @@ export async function replyWithAgent(chatId: string, userText: string) {
 export function formatAgentError(error: unknown): string {
   if (error instanceof APIError) {
     const text = `${error.message} ${error.code ?? ""}`.toLowerCase();
+    if (error.code === "unsupported_country_region_territory") {
+      return "Ассистент временно недоступен из этого региона. Попробуйте ещё раз — ответит запасная модель.";
+    }
     if (
       error.status === 429 &&
       (text.includes("credit") || text.includes("quota"))
